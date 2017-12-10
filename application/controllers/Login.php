@@ -28,6 +28,7 @@ class Login extends CI_Controller {
 				'username' => $username,
 				'id_user' => $a[0]['id_user'],
 				'level' => $a[0]['level'],
+				'kota' => $a[0]['id_kota'],
 				'kecamatan' => $a[0]['kecamatan']);
 
 			$this->session->set_userdata($dt);
