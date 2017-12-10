@@ -11,10 +11,15 @@
 
 				function index($id = 0){
 
-						echo str_replace('-',' ',$id);
+						$id = str_replace('-',' ',$id);
+						$a = $this->db->get_where('v_laporan2',array('Kecamatan' => $id))->result_array();
 
-						$a = $this->db->get_where('v_laporan_per_tps',array('Kecamatan' => $id))->result_array();
-						echo count($a);
+
+						$data['tps'] = $a;
+						$data['content'] = "pages/laporan/perkecamatan";
+
+						$this->load->view('dashboard',$data);
+
 				}
 
 

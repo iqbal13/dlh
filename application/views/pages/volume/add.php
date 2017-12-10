@@ -36,7 +36,7 @@
      						<div class="form-group">
 
      								<label> Tanggal (Jika Tanggal adalah hari ini <?php echo date('d-m-Y')  ?> Maka tidak perlu diisi) </label>
-     								<input type="date" name="tanggal" class="form-control"  required="required">
+     								<input type="date" name="tanggal" class="form-control">
      						</div>
      							<button type="submit" class="btn btn-primary"> Simpan </button>
      					</form>

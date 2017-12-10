@@ -40,7 +40,7 @@ if($this->session->userdata('level') == 'Admin'){
 			$kecamatan = $this->session->userdata('kecamatan');
 			$data['tps'] = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
 		}else if($this->session->userdata('level') == 'Supervisor1'){
-			$kecamatan = $this->session->userdata('id_kota');
+			$kecamatan = $this->session->userdata('kota');
 			$data['tps'] = $this->db->get_where('master_tps',array('Wilayah' => $kecamatan))->result_array();
 		}
 
@@ -75,6 +75,9 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 		$aksi = $_POST['aksi'];
 
 			if($aksi == "tambah"){
+
+				
+
 				$volume = $_POST['volume'];
 				$kode_tps = $_POST['tps'];
 				if($_POST['tanggal'] == ""){

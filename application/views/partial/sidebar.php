@@ -58,7 +58,7 @@
 
             if($this->session->userdata('level') == 'Supervisor1'){ 
               $kota = $this->session->userdata('kota');
-              echo $kota;
+              echo "<li><a href='#'> Per Kota </a> </li>";
 
                 $kotanya = $this->db->get_where('master_kota',array('kota' => $kota))->row_array();
 
