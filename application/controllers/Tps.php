@@ -13,14 +13,14 @@ class Tps extends CI_Controller {
 	{
 
 			$where = '';
-
+				$data['kecamatan'] = "";
 if($this->session->userdata('level') == 'Admin'){
 			$data['tps'] = $this->db->get('master_tps')->result_array();
 
 		}else if($this->session->userdata('level') == 'Operator'){
 			$kecamatan = $this->session->userdata('kecamatan');
 				$where = " WHERE Kecamatan = '$kecamatan'";
-
+			$data['kecamatan'] = " Di Kecamatan ".$kecamatan;
 		}
 		$query = $this->db->query("SELECT * FROM master_tps $where");
 			$data['tps'] = $query->result_array();
