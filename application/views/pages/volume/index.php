@@ -8,12 +8,14 @@
      				<div class="box-header">
 
 	        		<h3 class="text-center"> Data Volume TPS </h3>
+                       <a class="btn btn-primary" href="<?php echo base_url() ?>volume/add"> Tambah Data </a>
+
 
      				</div>
      				<div class="box-body">
-     						
+                      <br />
      			
-                            <table class="table table-striped table-bordered">
+                            <table class="table table-striped table-bordered display responsive nowrap" id="tabel-data">
                                     <thead>
                                             <tr class="text-center">
                                                 <th> No </th>
@@ -25,6 +27,7 @@
                                                 <th> Tanggal </th>
                                                 <th> Input Data </th>
                                                 <th> Aksi </th>
+                                                <th> Status </th>
 
                                             </tr>
                                     </thead>
@@ -37,7 +40,7 @@
                                                 <td> <?php echo $val['Kelurahan'] ?></td>
                                                 <td> <?php echo $val['Kecamatan'] ?></td>
                                                 <td> <?php echo $val['volume'] ?>  </td>
-                                                <td> <?php echo $val['tanggal'] ?> </td>
+                                                <td> <?php echo tgl_indo($val['tanggal']) ?> </td>
                                                 <Td> <?php echo $val['created_by'] ?> </td>
                                             <td> 
 
@@ -48,10 +51,18 @@
                                                         <a href="#">Delete</a>
 
                                                     <?php }else if($level == 'Operator'){?>
-                                                        <a href="<?php echo base_url() ?>volume/edit/<?php echo $val['id_volume'] ?>">Edit</a>
-                                                        <a href="#">Delete</a>
+                                                        <a href="<?php echo base_url() ?>volume/edit/<?php echo $val['id_volume'] ?>" class="btn btn-primary">Edit</a>
+                                                        <a href="<?php echo base_url() ?>volume/delete/<?php echo $val['id_volume'] ?>" onclick="return confirm('Hapus data ini ? data akan terhapus permanen')" class="btn btn-danger"> Delete</a>
 
                                                     <?php } else if($level == 'Supervisor1'){ ?>
+                                                        <a href="<?php echo base_url() ?>volume/edit/<?php echo $val['id_volume'] ?>" class="btn btn-primary">Edit</a>
+                                                        <?php if($val['status'] == 1){ ?>
+                                                        <a href="<?php echo base_url() ?>volume/validasi/<?php echo $val['id_volume'] ?>?id_status=2" class="btn btn-success" onclick="return confirm('Validasi Data Ini')">Validasi</a>
+                                                        <?php } else if($val['status'] == 2){ ?>
+                                                        <a href="<?php echo base_url() ?>volume/validasi/<?php echo $val['id_volume'] ?>?id_status=1" class="btn btn-danger" onclick="return confirm('Validasi Data Ini')">Batal Validasi</a>
+
+                                                        <?php } ?>
+
 
                                                     <?php }else if($level == 'Supervisor2'){ ?>
 
@@ -59,6 +70,13 @@
                                                     ?>
 
                                              </td>
+                                             <td> <?php
+                                             if($val['status'] == 1){
+                                              echo "Data Belum Divalidasi SPV";
+                                             }else{
+                                              echo "Data Tervalidasi SPV";
+                                             }
+                                             ?>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

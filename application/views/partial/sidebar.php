@@ -54,7 +54,22 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            
+            <?php 
+
+            if($this->session->userdata('level') == 'Supervisor1'){ 
+              $kota = $this->session->userdata('kota');
+              echo $kota;
+
+                $kotanya = $this->db->get_where('master_kota',array('kota' => $kota))->row_array();
+
+            $kecamatan = $this->db->get_where('master_kecamatan',array('id_kota' => $kotanya['id_kota']))->result_array();
+              foreach($kecamatan as $k){  ?>
+                <li> <a href="<?php echo base_url() ?>laporan/index/<?php echo str_replace(' ','-',$k['nama_kecamatan']) ?>"> <?php echo $k['nama_kecamatan'] ?> </a>
+
+
+<?php 
+              }
+ } ?>
           </ul>
         </li>
           <li>

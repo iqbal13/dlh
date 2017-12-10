@@ -14,7 +14,7 @@
      						
      			    <a class="btn btn-primary" href="<?php echo base_url() ?>user/add"> Tambah User </a>
               <br />
-                            <table class="table table-striped table-bordered">
+                            <table class="table table-striped table-bordered" id="tabel-data">
                                     <thead>
                                             <tr class="text-center">
                                                 <th> No </th>

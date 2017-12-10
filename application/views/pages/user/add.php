@@ -16,7 +16,7 @@
      							<input type="hidden" name="aksi" value="tambah">
      						<div class="form-group">
      								<label>  Nama Lengkap </label>
-     							    <input type="text" name="nama_lengkap" class="form-control">
+     							    <input type="text" name="nama_user" class="form-control">
 
      						</div>
 
@@ -32,11 +32,11 @@
                             </div>
                                 <div class="form-group">
                                     <label>  Kota </label>
-     <select class="form-control" name="kota" onchange="kecamatan(this.value)">
+     <select class="form-control" name="kota" id="kota">
                     <option> Pilih Kota </option>
                     <?php 
                     foreach($kota as $k){ ?>
-                        <option value="<?php echo $k['id_kota'] ?>"> <?php echo $k['kota'] ?> </option>
+                        <option value="<?php echo $k['kota'] ?>"> <?php echo $k['kota'] ?> </option>
 
                     <?php } ?>
 
