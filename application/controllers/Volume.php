@@ -39,6 +39,9 @@ if($this->session->userdata('level') == 'Admin'){
 		}else if($this->session->userdata('level') == 'Operator'){
 			$kecamatan = $this->session->userdata('kecamatan');
 			$data['tps'] = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
+		}else if($this->session->userdata('level') == 'Supervisor1'){
+			$kecamatan = $this->session->userdata('id_kota');
+			$data['tps'] = $this->db->get_where('master_tps',array('Wilayah' => $kecamatan))->result_array();
 		}
 
 		$data['content'] = "pages/volume/add";
@@ -55,7 +58,12 @@ if($this->session->userdata('level') == 'Admin'){
 			$kecamatan = $this->session->userdata('kecamatan');
 			$data['tps'] = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
 		}
-
+else if($this->session->userdata('level') == 'Supervisor1'){
+			$kecamatan = $this->session->userdata('kota');
+			// print_r($_SESSION);
+			// exit;
+			$data['tps'] = $this->db->get_where('master_tps',array('Wilayah' => $kecamatan))->result_array();
+		}
 
 		$data['volume'] = $this->db->query("SELECT * FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE id_volume = '$id'")->row_array();
 		$data['content'] = "pages/volume/edit";
@@ -129,6 +137,9 @@ if($this->session->userdata('level') == 'Admin'){
 					}
 
 
+					redirect('volume');
+
+
 
 			}
 
@@ -138,12 +149,29 @@ if($this->session->userdata('level') == 'Admin'){
 	public function delete($id = 0)
 	{
 
-			$a = $this->db->delete('volume',array('id' => $id));
+			$a = $this->db->delete('volume_tps',array('id_volume' => $id));
 			if($a){
 				$this->session->set_flashdata('item','<div class="alert alert-info"> Data Volume Berhasil Dihapus </div>');
 			}
 
 			redirect('volume');
+	}
+
+	public function validasi($id = 0){
+
+			$id_status = $_GET['id_status'];
+
+			$dt = array('status' => $id_status);
+			$update = $this->db->update('volume_tps',$dt,array('id_volume' => $id));
+
+				if($update){
+									$this->session->set_flashdata('item','<div class="alert alert-info"> Data Volume Berhasil Dirubah </div>');
+										redirect('volume');
+								}else{
+									redirect('404');
+								}
+
+
 	}
 
 
