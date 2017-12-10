@@ -20,14 +20,15 @@ class Login extends CI_Controller {
 		$a = $this->db->get_where('user',array('username' => $username,'password' => $password))->result_array();
 
 		if(count($a) == 0){
-			$this->sesion->set_flashdata('item','<div class="alert alert-danger"> Maaf Username atau Password anda salah.. </div>');
+			$this->session->set_flashdata('item','<div class="alert alert-danger"> Maaf Username atau Password anda salah.. </div>');
 			redirect('login');
 		}else{
 			$dt = array(
+				'login' => TRUE,
 				'username' => $username,
 				'id_user' => $a[0]['id_user'],
 				'level' => $a[0]['level'],
-				'id_kota' => $a[0]['id_kota']);
+				'kecamatan' => $a[0]['kecamatan']);
 
 			$this->session->set_userdata($dt);
 						$this->session->set_flashdata('item','<div class="alert alert-info">Login Berhasil.. </div>');
@@ -35,5 +36,14 @@ class Login extends CI_Controller {
 		}
 
 
+	}
+
+	function logout(){
+		$this->session->sess_destroy();
+		redirect('login');
+	}
+
+	function eror(){
+		$this->load->view('notfound');
 	}
 }

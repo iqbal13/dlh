@@ -3,6 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
+		function __construct(){
+			parent::__construct();
+			cek_login();
+		}
 
 	
 	public function index()
@@ -11,4 +15,6 @@ class Home extends CI_Controller {
 		$data['content'] = "pages/home";
 		$this->load->view('dashboard',$data);
 	}
+
+	
 }
