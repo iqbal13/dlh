@@ -13,15 +13,14 @@ class User extends CI_Controller {
 	{
 
 	$data['user'] = $this->db->get('user')->result_array();
-		$data['js_under'] = "pages/user/js_under";
 		$data['content'] = "pages/user/index";
 		$this->load->view('dashboard',$data);
 	}
 
-	function cek_kota(){
-		$id_kota = $_POST['id_kota'];
-
-		$data['kecamatan'] = $this->db->get_where('master_kecamatan',array('id_kota' => $id_kota))->result_array();
+	function getkecamatan(){
+		$id_kota = $_POST['kota'];
+		$kota = $this->db->get_where('master_kota',array('kota' => $id_kota))->row_array();
+		$data['kecamatan'] = $this->db->get_where('master_kecamatan',array('id_kota' => $kota['id_kota']))->result_array();
 
 			$this->load->view('kecamatan',$data);
 	}
@@ -30,6 +29,7 @@ class User extends CI_Controller {
 	{
 
 		$data['kota'] = $this->db->get('master_kota')->result_array();
+		$data['js_under'] = "pages/user/js_under";
 
 		$data['content'] = "pages/user/add";
 		$this->load->view('dashboard',$data);
@@ -56,10 +56,11 @@ class User extends CI_Controller {
 						'username' => $_POST['username'],
 						'password' => $_POST['password'],
 						'level' => $_POST['level'],
-						'kecamatan' => $_POST['kecamatan']
+						'kecamatan' => $_POST['kecamatan'],
+						'id_kota' => $_POST['kota']
 						);
 
-					$query = $this->db->insert('volume_tps',$dt);
+					$query = $this->db->insert('user',$dt);
 					if($query){
 						$this->session->set_flashdata('item','<div class="alert alert-info"> Volume Berhasil Ditambahkan </div>');
 
@@ -68,7 +69,7 @@ class User extends CI_Controller {
 
 					}
 
-					redirect('volume');
+					redirect('user');
 
 			}
 
@@ -78,7 +79,7 @@ class User extends CI_Controller {
 	public function delete($id = 0)
 	{
 
-			$a = $this->db->delete('volume',array('id' => $id));
+			$a = $this->db->delete('user',array('id' => $id));
 			if($a){
 				$this->session->set_flashdata('item','<div class="alert alert-info"> Data Volume Berhasil Dihapus </div>');
 			}
