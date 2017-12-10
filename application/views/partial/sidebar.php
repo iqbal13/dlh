@@ -21,28 +21,34 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="treeview">
+       <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Standar 3</span>
+            <span>Input Volume</span>
            <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>mahasiswa/reguler"><i class="fa fa-circle-o"></i> Data Mahasiswa Reguler <br /> dan Lulusannya </a></li>
-            <li><a href="<?php echo base_url() ?>mahasiswa/reguler/detail"><i class="fa fa-circle-o"></i> Data Mahassiwa Reguler <br /> Tujuh Tahun Terakhir </a></li>
-            <li><a href="<?php echo base_url() ?>mahasiswa/prestasi"><i class="fa fa-circle-o"></i> Prestasi </a></li>
-            <li><a href="<?php echo base_url() ?>mahasiswa/layanan"><i class="fa fa-circle-o"></i> Layanan Mahasiswa </a></li>
-            <li><a href="<?php echo base_url() ?>mahasiswa/pelacakanlulusan"><i class="fa fa-circle-o"></i> Pelacakan Lulusan </a></li>
-            
+              <li><a href="<?php echo base_url() ?>volume/add"> Tambah Volume </a> </li>
+              <li><a href="<?php echo base_url() ?>volume"> Data Volume </a> </li>
           </ul>
         </li>
        
+        <li>
+          <a href="<?php echo base_url() ?>user/index">
+            <i class="fa fa-dashboard"></i> <span>Manajemen User</span>
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo base_url() ?>tps/index">
+            <i class="fa fa-dashboard"></i> <span>Manajemen Data TPS</span>
+          </a>
+        </li>       
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
-            <span>Standar 7</span>
+            <span>Laporan</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -50,6 +56,11 @@
           <ul class="treeview-menu">
             
           </ul>
+        </li>
+          <li>
+          <a href="<?php echo base_url() ?>logout">
+            <i class="fa fa-dashboard"></i> <span>Logout</span>
+          </a>
         </li>
     
       </ul>

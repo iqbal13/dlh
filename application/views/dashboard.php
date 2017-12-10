@@ -19,6 +19,9 @@
         <li class="active">Dashboard</li>
       </ol> -->
     </section>
+      <div>
+          <?php echo @$this->session->flashdata('item') ?> 
+      </div>
 
    	<?php 
    	if(@$content){
@@ -34,6 +37,15 @@
 </div>
 <!-- ./wrapper -->
 <?php $this->load->view('partial/js_under'); ?>A
-</body>
+  <?php 
+    if(@$js_under){
+      $this->load->view($js_under); 
+    }else{
+    }
+    ?>  
+
+
+
+/body>
 </html>
 

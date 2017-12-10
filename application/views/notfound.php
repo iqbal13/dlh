@@ -34,47 +34,8 @@
   </style>
 </head>
 <body>
-<div class="login-box">
-  <div class="login-logo">
 
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <center>
-    <img src="<?php echo base_url() ?>img/logo.jpg" style="height:150px;" class="text-center">
-    </center>
-      <div>
-          <?php echo @$this->session->flashdata('item') ?> 
-      </div>
-
-    <form action="<?php echo base_url() ?>login/proses" method="post">
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" required="required" name="password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-            </label>
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-        </div>
-        <!-- /.col -->
-      </div>
-    </form>
-
-  </div>
-  <!-- /.login-box-body -->
-</div>
-<!-- /.login-box -->
+    <h3 class="text-center"> Maaf , Halaman tidak ditemukan </h3>
 
 <!-- jQuery 3 -->
 <script src="<?php echo base_url() ?>assets/bower_components/jquery/dist/jquery.min.js"></script>

@@ -1,6 +1,5 @@
 
 <!-- jQuery 3 -->
-<script src="<?php echo base_url() ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url() ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -8,7 +7,6 @@
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url() ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="<?php echo base_url() ?>assets/bower_components/raphael/raphael.min.js"></script>
 <script src="<?php echo base_url() ?>assets/bower_components/morris.js/morris.min.js"></script>
@@ -33,22 +31,3 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url() ?>assets/dist/js/adminlte.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-
-	//swal("Oops!", "Something went wrong!", "error");
-	function pilihprodi(a){
-	
-		$.ajax({
-			type:"POST",
-			url:"<?php echo base_url() ?>ajax/pilihprodi",
-			data:"id_prodi="+a,
-			success:function(dt){
-			swal("Berhasil", "Anda Telah Memilih Prodi"+dt, "success");
-
-			setTimeout(function(){
-				window.location.reload();
-			},1000);
-			}
-		})
-	}
-</script>
