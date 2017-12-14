@@ -20,7 +20,7 @@
      								<option value=""> Pilih TPS </option>
      								<?php
      								foreach($tps as $t){ ?>
-     									<option value="<?php echo $t['Kode_tps'] ?>"> <?php echo $t['Nama_TPS'] ?> </option>
+     									<option value="<?php echo $t['Kode_tps'] ?>"> <?php echo $t['Kode_tps'] ?> - <?php echo $t['Nama_TPS'] ?> </option>
      								<?php } ?>
 
      								</select>
