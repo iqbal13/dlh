@@ -27,7 +27,7 @@
                                             }
 
                                      ?>
-     									<option value="<?php echo $t['Kode_tps'] ?>" <?php echo $selected ?>><?php echo $t['kode_tps'] ?> -  <?php echo $t['Nama_TPS'] ?> </option>
+     									<option value="<?php echo $t['Kode_tps'] ?>" <?php echo $selected ?>><?php echo $t['Kode_tps'] ?> -  <?php echo $t['Nama_TPS'] ?> </option>
      								<?php } ?>
 
      								</select>

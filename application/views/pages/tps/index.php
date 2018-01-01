@@ -8,11 +8,12 @@
      				<div class="box-header">
 
 	        		<h3 class="text-center"> Data TPS <?php echo $kecamatan ?> </h3>
-
+<a href="<?php echo base_url() ?>tps/add" class="btn btn-primary pull-right"> Tambah Data TPS </a>
+                    
      				</div>
      				<div class="box-body">
      						
-     			
+     			    <br />
                             <table class="table table-striped table-bordered" id="tabel-data">
                                     <thead>
                                             <tr class="text-center">

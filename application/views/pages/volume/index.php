@@ -65,16 +65,22 @@
 
 
                                                     <?php }else if($level == 'Supervisor2'){ ?>
-
+                                                    
                                                     <?php }
                                                     ?>
 
                                              </td>
                                              <td> <?php
                                              if($val['status'] == 1){
-                                              echo "Data Belum Divalidasi SPV";
+                                              echo "Data Belum Divalidasi SPV 1";
+                                             }else if($val['status'] == 2){
+                                              echo "Data Telah Tervalidasi dan Dikirim ke SPV 2";
+                                             }else if($val['status'] == 3){
+                                                echo "Data Tervalidasi SPV 2";
+                                             } else if($val['status'] == 9){
+                                                echo "Data Ditolak SPV 2 , Harap Dibenarkan";
                                              }else{
-                                              echo "Data Tervalidasi SPV";
+
                                              }
                                              ?>
                                         </tr>

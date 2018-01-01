@@ -8,6 +8,20 @@ class Volume extends CI_Controller {
 			cek_login();
 		}
 
+
+	public function datavolumeall(){
+		$kota = $this->session->userdata('kota');
+
+		$has = "SELECT SUM(volume) as total_volume, Kecamatan, tanggal,status FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps left join master_kecamatan ON master_tps.Kecamatan = master_kecamatan.nama_kecamatan LEFT JOIN master_kota ON master_kecamatan.id_kota = master_kota.id_kota WHERE kota = '$kota' AND (status = 2 OR status = 3) GROUP BY Kecamatan,tanggal";
+	
+		$query = $this->db->query($has);
+
+		$data['tps'] = $query->result_array();
+		$data['content'] = "pages/volume/dataall";
+
+		$this->load->view('dashboard',$data);
+	}
+
 	
 	public function index()
 	{
@@ -174,6 +188,46 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 									redirect('404');
 								}
 
+
+	}
+
+
+	public function  approval($id = 0){
+
+			$kecamatan = $_POST['kecamatan'];
+			$tgl = $_POST['tanggal'];	
+
+			$approve = $_POST['approve'];
+
+		if($approve == 'approve'){
+		
+		$dt = 	$this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
+
+		foreach($dt as $k => $val){
+
+			$query = "UPDATE volume_tps SET status = 3 WHERE kode_tps ='$val[Kode_tps]' AND tanggal = '$tgl'";
+			$b = $this->db->query($query);
+
+		}
+
+		}else if($approve == 'reject'){
+		
+		$dt = 	$this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
+
+		foreach($dt as $k => $val){
+
+			$query = "UPDATE volume_tps SET status = 9 WHERE kode_tps ='$val[Kode_tps]' AND tanggal = '$tgl'";
+			echo $query;
+			$b = $this->db->query($query);
+
+		}
+
+
+		}
+
+
+		$this->session->set_flashdata('item','<div class="alert alert-info"> Aksi Berhasil Dilakukan </div>');
+		redirect('volume/datavolumeall');
 
 	}
 

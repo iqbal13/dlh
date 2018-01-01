@@ -31,14 +31,11 @@ if($this->session->userdata('level') == 'Admin'){
 		public function add()
 	{
 
-		if($this->session->userdata('level') == 'Admin'){
-			$data['tps'] = $this->db->get('master_tps')->result_array();
-		}else if($this->session->userdata('level') == 'Operator'){
-			$kecamatan = $this->session->userdata('kecamatan');
-			$data['tps'] = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
-		}
+		$data['field'] = $this->db->query("DESC master_tps")->result_array();
 
-		$data['content'] = "pages/volume/add";
+		$data['content'] = "pages/tps/add";
+		$data['kecamatan'] = $this->db->get('master_kecamatan')->result_array();
+		$data['js_under'] = "pages/tps/js_under_add";
 		$this->load->view('dashboard',$data);
 	}
 
@@ -61,71 +58,28 @@ if($this->session->userdata('level') == 'Admin'){
 
 
 	function proses(){
-		$aksi = $_POST['aksi'];
-
+		//$aksi = $_POST['aksi'];
+			$aksi = "tambah";
 			if($aksi == "tambah"){
-				$volume = $_POST['volume'];
-				$kode_tps = $_POST['tps'];
-				if($_POST['tanggal'] == ""){
-					$tanggal = date('Y-m-d');
-				}else{
-					$tanggal = $_POST['tanggal'];
-				}
+			
+				$a = $this->db->query("DESC master_tps");
+		$b = $a->result_array();
 
+		foreach($b as $k => $v){
+			$dt[$v['Field']] = $_POST[$v['Field']];
+		}
+		print_r($dt);
 
-					$dt = array(
-						'kode_tps' => $kode_tps,
-						'volume' => $volume,
-						'status' => 1,
-						'tanggal' => $tanggal,
-						'waktu' => date('Y-m-d H:i:s'),
-						'id_user' => $this->session->userdata('id_user'),
-						'created_by' => $this->session->userdata('username'),
-						'created_date' => date('Y-m-d H:i:s'));
+		$a = $this->db->insert('master_tps',$dt);
+		if($a){
 
-					$query = $this->db->insert('volume_tps',$dt);
-					if($query){
-						$this->session->set_flashdata('item','<div class="alert alert-info"> Volume Berhasil Ditambahkan </div>');
+			$this->session->set_flashdata('item','<div class="alert alert-info"> TPS Berhasil ditambahkan </div>');
+			redirect('tps');
 
-					}else{
-												$this->session->set_flashdata('item','<div class="alert alert-danger"> Volume GAGAL Ditambahkan </div>');
-
-					}
-
-					redirect('volume');
-
+		}else{
+			echo "ga error";
+		}
 			}else if($aksi == "edit"){
-					$id = $_POST['id'];
-
-					$volume = $_POST['volume'];
-				$kode_tps = $_POST['tps'];
-				if($_POST['tanggal'] == ""){
-					$tanggal = date('Y-m-d');
-				}else{
-					$tanggal = $_POST['tanggal'];
-				}
-
-
-					$dt = array(
-						'kode_tps' => $kode_tps,
-						'volume' => $volume,
-						'status' => 1,
-						'tanggal' => $tanggal,
-						'waktu' => date('Y-m-d H:i:s'),
-						'id_user' => $this->session->userdata('id_user'),
-						'created_by' => $this->session->userdata('username'),
-						'created_date' => date('Y-m-d H:i:s'));
-
-					$query = $this->db->update('volume_tps',$dt,array('id_volume' => $id));
-					if($query){
-						$this->session->set_flashdata('item','<div class="alert alert-info"> Volume Berhasil Ditambahkan </div>');
-
-					}else{
-												$this->session->set_flashdata('item','<div class="alert alert-danger"> Volume GAGAL Ditambahkan </div>');
-
-					}
-
-
 
 			}
 
@@ -142,6 +96,8 @@ if($this->session->userdata('level') == 'Admin'){
 
 			redirect('volume');
 	}
+
+
 
 
 	
