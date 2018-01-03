@@ -153,10 +153,13 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 
 					}
 
-
+					if($_SESSION['level'] == 'Operator'){
+						redirect('volume/add');
+					}else{
 					redirect('volume');
+						}
 
-
+					
 
 			}
 

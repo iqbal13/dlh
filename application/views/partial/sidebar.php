@@ -28,24 +28,10 @@
         </li> -->
 
       <?php if($this->session->userdata('level') == 'Operator'){?> 
-
-          <li class="treeview">
-          <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Input Volume</span>
-           <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
               <li><a href="<?php echo base_url() ?>volume/add"> Tambah Volume </a> </li>
-              <li><a href="<?php echo base_url() ?>volume"> Data Volume </a> </li>
-          </ul>
-        </li>
-      
          <li>
-          <a href="<?php echo base_url() ?>tps/index">
-            <i class="fa fa-dashboard"></i> <span>Manajemen Data TPS</span>
+          <a href="<?php echo base_url() ?>tps/add">
+            <i class="fa fa-dashboard"></i> <span>Input Data TPS</span>
           </a>
         </li>       
       <?php }else if($this->session->userdata('level') == 'Supervisor1'){ ?>
@@ -59,11 +45,11 @@
       <?php } else { ?>
       
 <?php  } ?>
-        <li>
+      <!--   <li>
           <a href="<?php echo base_url() ?>user/index">
             <i class="fa fa-dashboard"></i> <span>Manajemen User</span>
           </a>
-        </li>
+        </li> -->
       <?php if($_SESSION['level'] != 'Operator'){ ?>
         <li class="treeview">
           <a href="#">
@@ -78,25 +64,20 @@
 
             if($this->session->userdata('level') == 'Supervisor2'){ 
               $kota = $this->session->userdata('kota');
-              echo "<li><a href='".base_url()."laporan/per_kota'> Per Kota </a> </li>";    
-
-                $kotanya = $this->db->get_where('master_kota',array('kota' => $kota))->row_array();
-
-            $kecamatan = $this->db->get_where('master_kecamatan',array('id_kota' => $kotanya['id_kota']))->result_array();
-              foreach($kecamatan as $k){  ?>
-                <li> <a href="<?php echo base_url() ?>laporan/index/<?php echo str_replace(' ','-',$k['nama_kecamatan']) ?>"> <?php echo $k['nama_kecamatan'] ?> </a>
-      }
-
-
+                ?>
+                   <li><a href="<?php echo base_url()?>laporan/tps_perkota"> Laporan TPS Perkecamatan </a> </li>
+    <li><a href="<?php echo base_url() ?>laporan/volume/kota"> Laporan Volume Sampah <br /> Wilayah </a> </li>
 <?php 
-    }            
+    }else{ ?>
+    <li><a href="<?php echo base_url() ?>laporan/tps_perkecamatan"> Laporan TPS  </a> </li>
+    <li><a href="<?php echo base_url() ?>laporan/volume/kecamatan"> Laporan Volume Sampah <br />Per Kecamatan </a> </li>
+
+    <?php }            
  } ?>
           </ul>
         </li>
 
       
-       
-      <?php } ?>
           <li>
           <a href="<?php echo base_url() ?>logout">
             <i class="fa fa-dashboard"></i> <span>Logout</span>

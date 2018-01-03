@@ -2,8 +2,12 @@
 
     <section class="content">
       <div class="col-md-12">
-        <div class="row">
-            
+       <?php
+       $filename = "a.xls";
+header('Content-type: application/ms-excel');
+header('Content-Disposition: attachment; filename='.$filename); 
+?>
+<div class="row">
             <div class="box box-success">
                     <div class="box-header">
 
