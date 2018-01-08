@@ -51,7 +51,7 @@ if($this->session->userdata('level') == 'Admin'){
 		}
 
 
-		$data['volume'] = $this->db->query("SELECT * FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE id_volume = '$id'")->result_array();
+		$data['volume'] = $this->db->query("SELECT * FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = mail(to, subject, message)ster_tps.Kode_tps WHERE id_volume = '$id'")->result_array();
 		$data['content'] = "pages/volume/add";
 		$this->load->view('dashboard',$data);
 	}
@@ -62,11 +62,11 @@ if($this->session->userdata('level') == 'Admin'){
 			$aksi = "tambah";
 			if($aksi == "tambah"){
 			
-				$a = $this->db->query("DESC master_tps");
+		$a = $this->db->query("DESC master_tps");
 		$b = $a->result_array();
 
 		foreach($b as $k => $v){
-			$dt[$v['Field']] = $_POST[$v['Field']];
+			$dt[$v['Field']] = $_POST[strtolower($v['Field'])];
 		}
 		print_r($dt);
 

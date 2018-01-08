@@ -28,7 +28,7 @@
         </li> -->
 
       <?php if($this->session->userdata('level') == 'Operator'){?> 
-              <li><a href="<?php echo base_url() ?>volume/add"> Tambah Volume </a> </li>
+              <li><a href="<?php echo base_url() ?>volume/add"><span class="fa fa-download"> </span> Input Data Volume </a> </li>
          <li>
           <a href="<?php echo base_url() ?>tps/add">
             <i class="fa fa-dashboard"></i> <span>Input Data TPS</span>
@@ -36,15 +36,20 @@
         </li>       
       <?php }else if($this->session->userdata('level') == 'Supervisor1'){ ?>
               <li><a href="<?php echo base_url() ?>volume"> Data Volume </a> </li>
+              <li><a href="<?php echo base_url() ?>tps"> Manajemen TPS  </a> </li>
 
 
       <?php }else if($this->session->userdata('level') == 'Supervisor2'){ ?>
                     <li><a href="<?php echo base_url() ?>volume/datavolumeall"> Data Volume </a> </li>
+              <li><a href="<?php echo base_url() ?>tps"> Manajemen TPS  </a> </li>
 
 
-      <?php } else { ?>
-      
-<?php  } ?>
+      <?php } else if($this->session->userdata('level') == 'Admin'){ ?>
+       <li><a href="<?php echo base_url() ?>volume/datavolumeall"> Data Volume </a> </li>
+              <li><a href="<?php echo base_url() ?>tps"> Manajemen TPS  </a> </li>
+              <li><a href="<?php echo base_url() ?>user"> Manajemen User  </a> </li>
+
+<?php  } else{ }  ?>
       <!--   <li>
           <a href="<?php echo base_url() ?>user/index">
             <i class="fa fa-dashboard"></i> <span>Manajemen User</span>
