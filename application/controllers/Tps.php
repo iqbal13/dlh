@@ -62,16 +62,84 @@ if($this->session->userdata('level') == 'Admin'){
 			$aksi = "tambah";
 			if($aksi == "tambah"){
 			
-		$a = $this->db->query("DESC master_tps");
-		$b = $a->result_array();
+		
+				 $nama_tps = $_POST['nama_tps'];
+    $koordinat = $_POST['koordinat'];
+    $penanggung_jawab = $_POST['penanggung_jawab'];
+    $no_hp = $_POST['no_hp'];
+    $alamat_tps = $_POST['alamat_tps'];
+    $kelurahan = $_POST['kelurahan'];
+    $kecamatan = $_POST['kecamatan'];
+    $wilayah = $_POST['wilayah'];
+    $jenis_tps = $_POST['jenis_tps'];
+    $luas_lahan = $_POST['luas_lahan'];
+    $status_lahan 	= $_POST['status_lahan'];
+    $volume_sampah = $_POST['volume_sampah'];
+    $sumber_sampah = $_POST['sumber_sampah'];
+    $atap = $_POST['atap'];
+    $dinding = $_POST['dinding'];
+    $landasan = $_POST['landasan'];
+    $container = $_POST['container'];
+    $saluran_air_lindi = $_POST['saluran_air'];
+    $penampungan_air_lindi = $_POST['penampungan_air'];
+    $penghijauan = $_POST['penghijauan'];
+    $sumber_air = $_POST['sumber_air'];
+    $truk = $_POST['truk'];
+    $nama_truk = $_POST['nama_truk'];
+    $jenis_truk = $_POST['jenis_truk'];
+    $nomer_truk = $_POST['nomer_truk'];
+    $alat_berat = $_POST['alat_berat'];
+    $composting = $_POST['composting'];
+    $pencacah_organik = $_POST['pencacah_organik'];
+    $pencacah_anorganik = $_POST['pencacah_anorganik'];
+    $pengayak = $_POST['pengayak'];
+    $alat_press = $_POST['alat_press'];
+    $jam_pengumpulan = $_POST['jam_pengumpulan'];
+    $jam_pengangkutan = $_POST['jam_pengangkutan'];
+    $permasalahan = $_POST['permasalahan'];
+    $keterangan = $_POST['keterangan'];
 
-		foreach($b as $k => $v){
-			$dt[$v['Field']] = $_POST[strtolower($v['Field'])];
-		}
-		print_r($dt);
+  
+    $ins = $this->db->query("INSERT INTO master_tps SET
+                                                nama_tps = '$nama_tps',
+                                                koordinat = '$koordinat',
+                                                penanggung_jawab = '$penanggung_jawab',
+                                                no_hp = '$no_hp',
+                                                alamat_tps = '$alamat_tps',
+                                                kelurahan = '$kelurahan',
+                                                kecamatan = '$kecamatan',
+                                                wilayah = '$wilayah',
+                                                jenis_tps = '$jenis_tps',
+                                                luas_lahan = '$luas_lahan',
+                                                status_lahan = '$status_lahan',
+                                                volume_sampah = '$volume_sampah',
+                                                sumber_sampah = '$sumber_sampah',
+                                                atap = '$atap',
+                                                dinding = '$dinding',
+                                                landasan = '$landasan',
+                                                container = '$container',
+                                                saluran_air_lindi = '$saluran_air_lindi',
+                                                penampungan_air_lindi = '$penampungan_air_lindi',
+                                                penghijauan = '$penghijauan',
+                                                sumber_air = '$sumber_air',
+                                                truk = '$truk',
+                                                nama_truk = '$nama_truk',
+                                                jenis_truk = '$jenis_truk',
+                                                nomer_truk = '$nomer_truk',
+                                                alat_berat = '$alat_berat',
+                                                composting = '$composting',
+                                                pencacah_organik = '$pencacah_organik',
+                                                pencacah_anorganik = '$pencacah_anorganik',
+                                                pengayak = '$pengayak',
+                                                alat_press = '$alat_press',
+                                                jam_pengumpulan = '$jam_pengumpulan',
+                                                jam_pengangkutan = '$jam_pengangkutan',
+                                                permasalahan = '$permasalahan',
+                                                keterangan = '$keterangan'");
 
-		$a = $this->db->insert('master_tps',$dt);
-		if($a){
+
+
+		if($ins){
 
 			$this->session->set_flashdata('item','<div class="alert alert-info"> TPS Berhasil ditambahkan </div>');
 			redirect('tps');

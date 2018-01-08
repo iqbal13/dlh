@@ -36,9 +36,9 @@
                                                 <td> <?php echo $val['Kelurahan'] ?></td>
                                                 <td> <?php echo $val['Kecamatan'] ?></td>
                                               <td>
-                                               <a href="#" class="btn btn-success"> Detail </a> 
-                                               <a href="#" class="btn btn-primary"> Edit </a> 
-                                               <a href="#" class="btn btn-danger" onclick="return confirm('Hapus data ini ? Data akan terhapus permananen')"> Hapus </a> 
+                                               <a href="<?=base_url() ?>tps/detail/<?=$val['Kode_tps'];?>" class="btn btn-success"> Detail </a> 
+                                               <a href="<?php echo base_url() ?>tps/edit/<?=$val['Kode_tps']; ?>" class="btn btn-primary"> Edit </a> 
+                                               <a href="<?php echo base_url() ?>tps/delete/<?php echo $val['Kode_tps'];?>" class="btn btn-danger" onclick="return confirm('Hapus data ini ? Data akan terhapus permananen')"> Hapus </a> 
                                                  </td>
                                            </tr>
                                         <?php } ?>
