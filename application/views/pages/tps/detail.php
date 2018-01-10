@@ -7,7 +7,7 @@
      		<div class="box box-success">
      				<div class="box-header">
 
-	        		<h3 class="text-center"> Laporan Per Kecamatan </h3>
+	        		<h3 class="text-center"> Detail TPS </h3>
 
      				</div>
      				<div class="box-body">
@@ -24,12 +24,7 @@
     </div>
     <div id="collapse-<?php echo $k ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-      	<?php if($val['tanggal_min'] == NULL OR $val['tanggal_max'] == NULL){
-      		echo "Belum ada input volume di kecamatan ini ";
-      	}else{ ?>
-
-      	<h3> Data Rata Rata Perhari Volume Sampah TPS Per Tanggal <?php echo $val['tanggal_min'] ?> S.d <?php echo $val['tanggal_max'] ?> </h3>
-        <?php } ?>
+      
         <table class="table table-striped">	<tr>	
                      <tr><td>Kode TPS	</td><td> : </td> <td>	                    <?php echo $val['Kode_tps'];?></td></tr>
                      <tr><td>Nama TPS	</td><td> : </td> <td>	                    <?php echo $val['Nama_TPS'];?></td></tr>
@@ -44,7 +39,6 @@
                      <tr><td>Jenis TPS	</td><td> : </td> <td>	                    <?php echo $val['Jenis_TPS'];?></td></tr>
                      <tr><td>Luas Lahan(m2)	</td><td> : </td> <td>	                    <?php echo $val['Luas_lahan'];?></td></tr>
                      <tr><td>Status Lahan	</td><td> : </td> <td>	                    <?php echo $val['Status_Lahan'];?></td></tr>
-                     <tr><td>Volume Sampah (m3)	</td><td> : </td> <td>	                    <?php echo $val['rata_rata_perhari'];?></td></tr>
                      <tr><td>Sumber Sampah	</td><td> : </td> <td>	                    <?php echo $val['Sumber_Sampah'];?></td></tr>
                      <tr><td>Atap	</td><td> : </td> <td>	                    <?php echo $val['Atap'];?></td></tr>
                      <tr><td>Dinding	</td><td> : </td> <td>	                    <?php echo $val['Dinding'];?></td></tr>

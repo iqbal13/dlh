@@ -36,6 +36,11 @@
                                                 <td> <?php echo $val['password'] ?></td>
                                                 <td> <?php echo $val['level'] ?></td>
                                                 <td> <?php echo $val['kecamatan'] ?>  </td>
+                                                <td>
+                                                    <a href="<?=base_url() ?>index.php/user/edit/<?=$val['id_user'];?>"> Edit </a>
+                                                    <a href="<?=base_url() ?>index.php/user/delete/<?=$val['id_user'];?>" onclick="return confirm('Yakin hapus user ini ? aksi tidak dapat dibatalkan')"> Hapus </a>
+
+                                                </td>
                                             <td>
                                              </td>
                                         </tr>

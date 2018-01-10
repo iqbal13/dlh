@@ -13,6 +13,10 @@
      				<div class="box-body">
 
      				    <form role="form" action="<?php echo base_url() ?>tps/proses" method="POST" enctype="multipart/form-data">
+                              <div class="form-group">
+                                <label>Kode TPS (Kode ini tidak dapat dirubah nantinya, harap isi dengan benar)</label>
+                                <input class="form-control" type="text" name="kode_tps" placeholder="Kode TPS" required="required" />
+                            </div>
                          <div class="form-group">
                                 <label>Nama TPS</label>
                                 <input class="form-control" type="text" name="nama_tps" placeholder="Nama TPS" />
@@ -43,14 +47,16 @@
                             </div>  
                             <div class="form-group">
                             <label>Kecamatan</label>
-                            <input class="form-control" type="text" name="kecamatan" value="Gambir" readonly="readonly">
+                            <input class="form-control" type="text" name="kecamatan" value="<?php echo $_SESSION['kecamatan']; ?>" readonly="readonly">
                             </div>
                              <div class="form-group">
                             <label>Kelurahan</label>
                                 <select class="form-control" name="kelurahan" id="kelurahan">
                                   <option>Choose Kelurahan</option>
-                                  <option></option>
-                                  
+                                    <?php 
+                                    foreach($kelurahan as $k => $val): ?>
+                                    <option value="<?=$val['nama_kelurahan'];?>"><?=$val['nama_kelurahan']; ?></option>
+                                    <?php endforeach; ?>                                  
                                 </select>
                             </div>
                             <script type="text/javascript">

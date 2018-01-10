@@ -36,10 +36,13 @@ class User extends CI_Controller {
 	}
 
 
-	public function edit()
+	public function edit($id = 0)
 	{
+		$data['js_under'] = "pages/user/js_under";
+		$data['kota'] = $this->db->get('master_kota')->result_array();
 
-		$data['content'] = "pages/volume/add";
+		$data['content'] = "pages/user/edit";
+		$data['user'] = $this->db->get_where('user',array('id_user' => $id))->row_array();
 		$this->load->view('dashboard',$data);
 	}
 
@@ -62,14 +65,49 @@ class User extends CI_Controller {
 
 					$query = $this->db->insert('user',$dt);
 					if($query){
-						$this->session->set_flashdata('item','<div class="alert alert-info"> Volume Berhasil Ditambahkan </div>');
+						$this->session->set_flashdata('item','<div class="alert alert-info"> User Berhasil Ditambahkan </div>');
 
 					}else{
-												$this->session->set_flashdata('item','<div class="alert alert-danger"> Volume GAGAL Ditambahkan </div>');
+												$this->session->set_flashdata('item','<div class="alert alert-danger"> User GAGAL Ditambahkan </div>');
 
 					}
 
 					redirect('user');
+
+			}else if($aksi == "edit"){	
+					$id_user = $_POST['id_user'];
+
+					if(@$_POST['password'] != ''){
+					$dt = array(
+						'nama_user' => $_POST['nama_user'],
+						'username' => $_POST['username'],
+						'level' => $_POST['level'],
+						'kecamatan' => $_POST['kecamatan'],
+						'id_kota' => $_POST['kota']
+						);
+
+				}else{
+						$dt = array(
+						'nama_user' => $_POST['nama_user'],
+						'username' => $_POST['username'],
+						'level' => $_POST['level'],
+						'password' => $_POST['password'],
+						'kecamatan' => $_POST['kecamatan'],
+						'id_kota' => $_POST['kota']
+						);
+				}
+
+					$query = $this->db->update('user',$dt,array('id_user' => $id));
+					if($query){
+						$this->session->set_flashdata('item','<div class="alert alert-info"> User Berhasil Dirubah </div>');
+
+					}else{
+												$this->session->set_flashdata('item','<div class="alert alert-danger"> User GAGAL Ditambahkan </div>');
+
+					}
+
+					redirect('user');
+
 
 			}
 
@@ -79,12 +117,12 @@ class User extends CI_Controller {
 	public function delete($id = 0)
 	{
 
-			$a = $this->db->delete('user',array('id' => $id));
+			$a = $this->db->delete('user',array('id_user' => $id));
 			if($a){
 				$this->session->set_flashdata('item','<div class="alert alert-info"> Data Volume Berhasil Dihapus </div>');
 			}
 
-			redirect('volume');
+			redirect('user');
 	}
 
 

@@ -9,6 +9,8 @@
                             <h3 class="text-center"> Laporan TPS Kecamatan : <?php echo $_SESSION['kecamatan']; ?> </h3>
 
      				</div>
+
+                    <a href="<?=base_url() ?>laporan/export_tps/kecamatan/" class="btn btn-primary"> Export Data </a>
      				<div class="box-body">
              
                             <table class="table table-striped table-bordered">

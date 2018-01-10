@@ -6,13 +6,13 @@
 				function __construct(){
 					parent::__construct();
 
+            $this->load->library("Excel/PHPExcel");
 
 				}
 
 
 				public function exportexcel($tipe = "kecamatan", $tanggal = 0)
         {
-            $this->load->library("Excel/PHPExcel");
  
             $objPHPExcel = new PHPExcel();
 
@@ -271,6 +271,25 @@ $filename ="excelreport.xls";
 				}
 
 
+        function tps_export($tipe = 'kecamatan', $kecamatan = ''){
+
+          if($tipe == 'kecamatan'){
+
+    $kecamatan = $_SESSION['kecamatan'];
+            $tps = "SELECT * FROM master_tps WHERE Kecamatan = '$kecamatan'";
+            $data['tps'] = $this->db->query($tps)->result_array();
+            $data['content'] = "pages/laporan/tpskecamatan_laporan";
+
+
+
+          }else{
+
+
+          }
+
+        }
+
+
 				function export_tps($tipe){
  $this->load->library("Excel/PHPExcel");
  
@@ -278,31 +297,94 @@ $filename ="excelreport.xls";
 
 					if($tipe == 'kecamatan'){
 
-						  $objPHPExcel->setActiveSheetIndex(0)
-                                        ->setCellValue('A1', 'Laporan Volume Sampah Per Wilayah '.$kota);
+					$kecamatan = $_SESSION['kecamatan'];
+    $a = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan));
+    $b = $a->result_array();
 
-                                        	// if(@$tanggal != 0){
-                                        	// 	$objPHPExcel->getActiveSheet()->setCellValue('A2'.$row,'Tanggal : '.$tanggal);
-                                        	// }
 
-                                        	$row = 4;
+    $objPHPExcel->setActiveSheetIndex(0)
+                                        ->setCellValue('A1', 'Laporan TPS Per Kecamatan '.$kecamatan);
+
+                                          // if(@$tanggal != 0){
+                                          //  $objPHPExcel->getActiveSheet()->setCellValue('A2'.$row,'Tanggal : '.$tanggal);
+                                          // }
+
+                                          $row = 7;
 
 $objPHPExcel->getActiveSheet(0)
             ->setCellValue('A3', 'No')
-            ->setCellValue('B3','Kecamatan')
-            ->setCellValue('C3','Volume Sampah');
+            ->setCellValue('B3','Kode TPS')
+            ->setCellValue('C3','Nama TPS')
+            ->setCellValue('D3','Jenis TPS')
+            ->setCellValue('D4','DIPO')
+            ->setCellValue('E4','TPS / TPS 3R')
+            ->setCellValue('F4','Pool Gerobak')
+            ->setCellValue('G4','Pool Container')
+            ->setCellValue('H4','Bak Beton')
+            ->setCellValue('I3','Kendaraan');
+  $dipo = 0;
+                                            $tps3r = 0;
+                                            $poolgerobak = 0;
+                                            $poolcontainer = 0;
+                                            $bakbeton = 0;
+                                            $kendaraan = 0;
+              foreach($b as $k => $val){
 
 
-              foreach($dt as $k => $val){
+                                        $kendaraan_nilai = 0;
+                                                    if($val['Truk'] != '' OR $val['Truk'] != NULL){
+                                                    $pisahkendaraan = explode(" ",$val['Truk']);
+                                                        $kendaraan_nilai = $pisahkendaraan[0];
+                                                        $kendaraan = $kendaraan + $kendaraan_nilai;
+                                                    }
 
-              		$objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$k+1);
-              		$objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$val['Kecamatan']);
-              		$objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$val['volume']);
-              			$row = $row + 1;
+                                                $dipo_nilai = "";
+                                                $tps3r_nilai = "";
+                                                $poolgerobak_nilai = "";
+                                                $poolcontainer_nilai = "";
+                                                $bakbeton_nilai = "";
+                                            if($val['Jenis_TPS'] == 'Dipo') {
+                                                $dipo = $dipo + 1;
+                                                $dipo_nilai = 1;
+                                            }else  if($val['Jenis_TPS'] == 'Pool Gerobak') {
+                                                $poolgerobak = $poolgerobak + 1;
+                                                $poolgerobak_nilai = 1;
+                                            }else  if($val['Jenis_TPS'] == 'Pool Kontainer') {
+                                                $poolcontainer = $poolcontainer + 1;
+                                                $poolcontainer_nilai = 1;
+                                            }else  if($val['Jenis_TPS'] == 'TPS / TPS 3R') {
+                                                $tps3r = $tps3r + 1;
+                                                $tps3r_nilai = 1;
+                                            }else if($val['Jenis_TPS'] == 'Bak Beton') {
+                                                $bakbeton = $bakbeton + 1;
+                                                $bakbeton_nilai = 1;
+                                            }
+
+
+                  $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$k+1);
+                  $objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$val['Kode_tps']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('C'.$row,$val['Nama_TPS']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$dipo_nilai);
+                  $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$tps3r_nilai);
+                  $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$poolgerobak_nilai);
+                  $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$poolcontainer_nilai);
+                  $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$bakbeton_nilai);
+                  $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$kendaraan_nilai);
+                    $row = $row + 1;
               }
 
 
-            $objPHPExcel->getActiveSheet()->setTitle('Laporan Per Wilayah');
+              
+                  $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,'JUMLAH');
+                  $objPHPExcel->getActiveSheet()->setCellValue('D'.$row,$dipo);
+                  $objPHPExcel->getActiveSheet()->setCellValue('E'.$row,$tps3r);
+                  $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$poolgerobak);
+                  $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$poolcontainer);
+                  $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$bakbeton);
+                  $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$kendaraan);
+
+
+            $objPHPExcel->getActiveSheet()->setTitle('Laporan Per Kecamatan');
  
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
  
@@ -316,6 +398,8 @@ $objPHPExcel->getActiveSheet(0)
             header('Content-Disposition: attachment;filename="laporanperkota.xlsx"');
             //unduh file
             $objWriter->save("php://output");
+
+
 
 
 					}else{

@@ -52,7 +52,7 @@
                             </div>
 
                                 <div class="form-group">
-                                    <label>  Level </label>
+                                    <label>  Level (Jika level user adalah admin, maka bisa melihat data semua wilayah) </label>
                                         <select class="form-control" name="level">
                                                 <option value="Admin"> Admin </option>
                                                 <option value="Supervisor1"> Supervisor 1 </option>
