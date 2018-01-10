@@ -3,7 +3,6 @@
     <section class="content">
       <div class="col-md-12">
         <div class="row">
-     		
      		<div class="box box-success">
      				<div class="box-header">
 
@@ -22,7 +21,7 @@
                             <?php } ?>
 
 
-                            
+
                             <?php if(@$tanggal == ""){ ?>
                                 <p> Pilih Tanggal </p>
                                     <ul>

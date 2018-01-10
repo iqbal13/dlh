@@ -11,9 +11,14 @@ class Volume extends CI_Controller {
 
 	public function datavolumeall(){
 		$kota = $this->session->userdata('kota');
-
+		if($this->session->userdata('level') == 'Supervisor2'){
 		$has = "SELECT SUM(volume) as total_volume, Kecamatan, tanggal,status FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps left join master_kecamatan ON master_tps.Kecamatan = master_kecamatan.nama_kecamatan LEFT JOIN master_kota ON master_kecamatan.id_kota = master_kota.id_kota WHERE kota = '$kota' AND (status = 2 OR status = 3) GROUP BY Kecamatan,tanggal";
-	
+		echo $has;
+	}else{
+
+	$has = "SELECT SUM(volume) as total_volume, Kecamatan, tanggal,status FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps left join master_kecamatan ON master_tps.Kecamatan = master_kecamatan.nama_kecamatan LEFT JOIN master_kota ON master_kecamatan.id_kota = master_kota.id_kota  WHERE (status = 2 OR status = 3) GROUP BY Kecamatan,tanggal";
+
+	}
 		$query = $this->db->query($has);
 
 		$data['tps'] = $query->result_array();
@@ -31,10 +36,13 @@ class Volume extends CI_Controller {
 if($this->session->userdata('level') == 'Admin'){
 			$data['tps'] = $this->db->get('master_tps')->result_array();
 
-		}else if($this->session->userdata('level') == 'Operator'){
+		}else if($this->session->userdata('level') == 'Operator' OR $this->session->userdata('level') == 'Supervisor1'){
 			$kecamatan = $this->session->userdata('kecamatan');
 				$where = " WHERE Kecamatan = '$kecamatan'";
 
+		}else if($this->session->userdata('level') == 'Supervisor2'){
+			$kota = $this->session->userdata('kota');
+			$where = " WHERE Wilayah = '$kota";
 		}
 
 
@@ -197,13 +205,14 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 
 	public function  approval($id = 0){
 
+
 			$kecamatan = $_POST['kecamatan'];
 			$tgl = $_POST['tanggal'];	
 
 			$approve = $_POST['approve'];
 
 		if($approve == 'approve'){
-		
+			
 		$dt = 	$this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
 
 		foreach($dt as $k => $val){
@@ -214,14 +223,15 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 		}
 
 		}else if($approve == 'reject'){
-		
+			// echo "uey";
 		$dt = 	$this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
 
 		foreach($dt as $k => $val){
 
 			$query = "UPDATE volume_tps SET status = 9 WHERE kode_tps ='$val[Kode_tps]' AND tanggal = '$tgl'";
-			echo $query;
+			//echo $query;
 			$b = $this->db->query($query);
+			//exit;
 
 		}
 

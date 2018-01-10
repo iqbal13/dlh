@@ -66,7 +66,14 @@
           </a>
           <ul class="treeview-menu">
             <?php 
+            if($this->session->userdata('level') == 'Admin'){ ?>
 
+                <li><a href="<?php echo base_url()?>laporan/tps_perkota"> Laporan TPS Seluruh </a> </li>
+    <li><a href="<?php echo base_url() ?>laporan/volume/kota"> Laporan Volume Sampah <br /> Seluruh Wilayah </a> </li>
+
+
+<?php
+            }else
             if($this->session->userdata('level') == 'Supervisor2'){ 
               $kota = $this->session->userdata('kota');
                 ?>

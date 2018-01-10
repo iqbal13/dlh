@@ -44,7 +44,8 @@
                                                 	<button class="btn btn-danger" onclick="return confirm('Yakin batalkan data ini ? data akan dikirim ke spv 2 untuk diperbaiki')"" type="submit" name="approve" value="reject"> Batalkan/Kirim Balik Ke SPV 2 </button>
                                                   	<?php } else if($val['status'] == 3){ ?>
                                                   	Data Telah Anda Validasi 
-                                                	<button class="btn btn-danger" onclick="return confirm('Yakin batalkan data ini ? data akan dikirim ke spv 2 untuk diperbaiki')"" type="submit" name="reject"> Batalkan/Kirim Balik Ke SPV 2 </button>
+
+                                                	<button class="btn btn-danger" onclick="return confirm('Yakin batalkan data ini ? data akan dikirim ke spv 2 untuk diperbaiki')"" type="submit" name="approve" value="reject"> Batalkan/Kirim Balik Ke SPV 2 </button>
                                                   	<?php } ?>
                                                 </form>
                                                   </td>

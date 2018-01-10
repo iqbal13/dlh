@@ -17,11 +17,14 @@ class Tps extends CI_Controller {
 if($this->session->userdata('level') == 'Admin'){
 			$data['tps'] = $this->db->get('master_tps')->result_array();
 
-		}else if($this->session->userdata('level') == 'Operator'){
+		}else if($this->session->userdata('level') == 'Operator' OR $this->session->userdata('level') == 'Supervisor1'){
 			$kecamatan = $this->session->userdata('kecamatan');
 				$where = " WHERE Kecamatan = '$kecamatan'";
 			$data['kecamatan'] = " Di Kecamatan ".$kecamatan;
-		}
+		}else if($this->session->userdata('level') =='Supervisor2'){
+$kecamatan = $this->session->userdata('kota');
+                $where = " WHERE Wilayah = '$kecamatan'";
+        }
 		$query = $this->db->query("SELECT * FROM master_tps $where");
 			$data['tps'] = $query->result_array();
 		$data['content'] = "pages/tps/index";
@@ -46,9 +49,12 @@ public function detail($id = 0)
 		$data['content'] = "pages/tps/add";
 		$data['kecamatan'] = $this->db->get('master_kecamatan')->result_array();
 
-        if($_SESSION['level'] == 'Operator'){
+        if($_SESSION['level'] == 'Operator' OR $_SESSION['level'] == 'Supervisor2'){
 
             $data['kelurahan'] = $this->db->get_where('master_kelurahan',array('nama_kecamatan' => $_SESSION['kecamatan']))->result_array();
+        }else{
+                        $data['kelurahan'] = $this->db->get_where('master_kelurahan',array('nama_kecamatan' => $_SESSION['kecamatan']))->result_array();
+
         }
 
 		$data['js_under'] = "pages/tps/js_under_add";
@@ -58,7 +64,13 @@ public function detail($id = 0)
 
 	public function edit($id = "")
 	{
+  if($_SESSION['level'] == 'Operator' OR $_SESSION['level'] == 'Supervisor2'){
 
+            $data['kelurahan'] = $this->db->get_where('master_kelurahan',array('nama_kecamatan' => $_SESSION['kecamatan']))->result_array();
+        }else{
+                        $data['kelurahan'] = $this->db->get_where('master_kelurahan',array('nama_kecamatan' => $_SESSION['kecamatan']))->result_array();
+
+        }
 	$data['tps'] = $this->db->get_where('master_tps',array('Kode_tps' => $id))->row_array();
 		$data['content'] = "pages/tps/edit";
 		$this->load->view('dashboard',$data);
@@ -241,7 +253,10 @@ public function detail($id = 0)
                                                 Permasalahan = '$permasalahan',
                                                 Keterangan = '$keterangan' where Kode_tps = '$kode_tps'";
 
-
+                                                $dt = $this->db->query($query);
+                                                if($dt){
+                                                    redirect('tps');
+                                                }
 			}
 
 	}
@@ -249,13 +264,15 @@ public function detail($id = 0)
 
 	public function delete($id = 0)
 	{
-
+            if($id = ""){
+                redirect('tps');
+            }
 			$a = $this->db->delete('master_tps',array('kode_tps' => $id));
 			if($a){
 				$this->session->set_flashdata('item','<div class="alert alert-info"> Data TPS Berhasil Dihapus </div>');
 			}
 
-			redirect('master_tps');
+			redirect('tps');
 	}
 
 
