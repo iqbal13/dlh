@@ -17,9 +17,12 @@
                             $url .= "/".$this->uri->segment(4);
                        }
                        ?>
-
+                       <?php if(count($data) != 0){ ?>
                             <a class="btn btn-primary" href="<?php echo $url ?>"> Export </a>
+                            <?php } ?>
 
+
+                            
                             <?php if(@$tanggal == ""){ ?>
                                 <p> Pilih Tanggal </p>
                                     <ul>

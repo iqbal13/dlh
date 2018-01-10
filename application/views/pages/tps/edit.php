@@ -7,43 +7,45 @@
      		<div class="box box-success">
      				<div class="box-header">
 
-	        		<h3 class="text-center">Tambah Data TPS </h3>
+	        		<h3 class="text-center">Edit Data TPS </h3>
 
      				</div>
      				<div class="box-body">
 
      				    <form role="form" action="<?php echo base_url() ?>tps/proses" method="POST" enctype="multipart/form-data">
                               <div class="form-group">
+                                <input type="hidden" name="aksi" value="edit">
+
                                 <label>Kode TPS (Kode ini tidak dapat dirubah nantinya, harap isi dengan benar)</label>
-                                <input class="form-control" type="text" name="kode_tps" placeholder="Kode TPS" required="required" />
+                                <input class="form-control" type="text" name="kode_tps" placeholder="Kode TPS" required="required" readonly="readonly" value="<?php echo $tps['Kode_tps']; ?>"/>
                             </div>
                          <div class="form-group">
                                 <label>Nama TPS</label>
-                                <input class="form-control" type="text" name="nama_tps" placeholder="Nama TPS" />
+                                <input class="form-control" type="text" name="nama_tps" placeholder="Nama TPS" value="<?php echo $tps['Kode_tps']; ?>" />
                             </div>
                              <div class="form-group">
                                 <label>Koordinat</label>
                                 <div class="row">
                                 <div class="col-lg-6">
-                                     <input class="form-control" type="text" name="koordinat" placeholder="Bujur" />
+                                     <input class="form-control" type="text" name="koordinat" placeholder="Bujur" value="<?php echo $tps['Kode_tps']; ?>"/>
                                 </div>
                             <div class="col-lg-6">
-                                <input class="form-control" type="text" name="koordinat" placeholder="Koordinat" />
+                                <input class="form-control" type="text" name="koordinat" placeholder="Koordinat" value="<?php echo $tps['Kode_tps']; ?>" />
                             </div>
                             </div>
                             </div>
                            
                             <div class="form-group">
                                 <label>Penanggung Jawab</label>
-                                <input class="form-control" type="text" name="penanggung_jawab" placeholder="Penanggung Jawab" />
+                                <input class="form-control" type="text" name="penanggung_jawab" placeholder="Penanggung Jawab" value="<?php echo $tps['Kode_tps']; ?>" />
                             </div>
                             <div class="form-group">
                                 <label>No. HP</label>
-                                <input class="form-control" type="tel" name="no_hp" placeholder="No HP" />
+                                <input class="form-control" type="tel" name="no_hp" placeholder="No HP" value="<?php echo $tps['Kode_tps']; ?>" />
                             </div>
                             <div class="form-group">
                                 <label>Alamat TPS</label>
-                                <textarea class="form-control" rows="3" name="alamat_tps" placeholder="Alamat TPS"></textarea>
+                                <textarea class="form-control" rows="3" name="alamat_tps" placeholder="Alamat TPS" value="<?php echo $tps['Kode_tps']; ?>"></textarea>
                             </div>  
                             <div class="form-group">
                             <label>Kecamatan</label>
@@ -79,11 +81,11 @@
                             </script>
                         <div class="form-group">
                                 <label>Wilayah</label>
-                                <input class="form-control" type="text" name="wilayah" value="Jakarta Barat" readonly="readonly" />
+                                <input class="form-control" type="text" name="wilayah" value="Jakarta Barat" readonly="readonly" value="<?php echo $tps['Kode_tps']; ?>" />
                             </div>
                              <div class="form-group">
                              <label>Jenis TPS</label>
-                                <select class="form-control" name="jenis_tps">
+                                <select class="form-control" name="jenis_tps" >
                                   <option>- Choose -</option>
                                   <option value="Dipo">Dipo</option>
                                   <option value="Pool Gerobak">Pool Gerobak</option>
