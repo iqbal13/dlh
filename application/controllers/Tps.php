@@ -59,16 +59,8 @@ public function detail($id = 0)
 	public function edit($id = "")
 	{
 
-			if($this->session->userdata('level') == 'Admin'){
-			$data['tps'] = $this->db->get('master_tps')->result_array();
-		}else if($this->session->userdata('level') == 'Operator'){
-			$kecamatan = $this->session->userdata('kecamatan');
-			$data['tps'] = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
-		}
-
-
-		$data['volume'] = $this->db->query("SELECT * FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = mail(to, subject, message)ster_tps.Kode_tps WHERE id_volume = '$id'")->result_array();
-		$data['content'] = "pages/volume/add";
+	$data['tps'] = $this->db->get_where('master_tps',array('Kode_tps' => $id))->row_array();
+		$data['content'] = "pages/tps/edit";
 		$this->load->view('dashboard',$data);
 	}
 

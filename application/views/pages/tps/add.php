@@ -13,6 +13,7 @@
      				<div class="box-body">
 
      				    <form role="form" action="<?php echo base_url() ?>tps/proses" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="aksi" value="tambah">
                               <div class="form-group">
                                 <label>Kode TPS (Kode ini tidak dapat dirubah nantinya, harap isi dengan benar)</label>
                                 <input class="form-control" type="text" name="kode_tps" placeholder="Kode TPS" required="required" />
