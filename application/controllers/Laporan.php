@@ -510,8 +510,8 @@ $objPHPExcel->getActiveSheet(0)
 
 }else{
 $kota = $this->db->query("SELECT * FROM master_kota WHERE id_kota != 6")->result_array();
-  $a = $this->db->get_where('v_laporan_tps_full',array('wilayah' => $kota));
-    $b = $a->result_array();
+  // $a = $this->db->get_where('v_laporan_tps_full',array('wilayah' => $_SESSION['kota']));
+  //   $b = $a->result_array();
 
 
     $objPHPExcel->setActiveSheetIndex(0)
@@ -521,29 +521,35 @@ $kota = $this->db->query("SELECT * FROM master_kota WHERE id_kota != 6")->result
 
 
 foreach($kota as $k => $val){ 
+
+  $a = $this->db->get_where('v_laporan_tps_full',array('wilayah' => $val['kota']));
+    $b = $a->result_array();
+
 $objPHPExcel->getActiveSheet(0)
             ->setCellValue('A'.$row, 'Wilayah  :'.$val['kota']);
 
             $row = $row + 2;
             $rowplussatu = $row + 1;
-
+            $rowplusdua = $row + 2;
+            
 $objPHPExcel->getActiveSheet(0)
             ->setCellValue('A'.$row, 'No')
             ->setCellValue('B'.$row,'Kecamatan')
             ->setCellValue('C'.$row,'Jenis TPS')
             ->setCellValue('C'.$rowplussatu,'Pool Gerobak')
             ->setCellValue('E'.$rowplussatu,'Pool Kontainer')
-            ->setCellValue('G4','Bak Beton')
-            ->setCellValue('I4','Lainya')
-            ->setCellValue('C5','Unit')
-            ->setCellValue('D5','Kendaraan')
-            ->setCellValue('E5','Unit')
-            ->setCellValue('F5','Kendaraan')
-            ->setCellValue('G5','Unit')
-            ->setCellValue('H5','Kendaraan')
-            ->setCellValue('I5','Unit')
-            ->setCellValue('J5','Kendaraan');
+            ->setCellValue('G'.$rowplussatu,'Bak Beton')
+            ->setCellValue('I'.$rowplussatu,'Lainya')
+            ->setCellValue('C'.$rowplussatu,'Unit')
+            ->setCellValue('D'.$rowplusdua,'Kendaraan')
+            ->setCellValue('E'.$rowplusdua,'Unit')
+            ->setCellValue('F'.$rowplusdua,'Kendaraan')
+            ->setCellValue('G'.$rowplusdua,'Unit')
+            ->setCellValue('H'.$rowplusdua,'Kendaraan')
+            ->setCellValue('I'.$rowplusdua,'Unit')
+            ->setCellValue('J'.$rowplusdua,'Kendaraan');
 
+            $row = $row + 1;
   $total_poolgerobak = 0;
                                             $total_kendaraanpoolgerobak = 0; 
                                             $total_poolcontainer = 0;
@@ -554,7 +560,7 @@ $objPHPExcel->getActiveSheet(0)
                                             $total_kendaarandll = 0;
 
 
-                                          $row = 7;
+                                          // $row = 7;
 
 
               foreach($b as $k => $val){
@@ -594,7 +600,7 @@ $objPHPExcel->getActiveSheet(0)
                   $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$total_dll);
                   $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$total_kendaarandll);
 
-
+                  $row =  $row + 2;
 
 }
 
