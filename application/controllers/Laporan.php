@@ -188,6 +188,23 @@ $objPHPExcel->getActiveSheet(0)
 
 
 						}else if($tipe == "kota"){
+
+              if($_SESSION['level'] == 'Admin'){
+
+
+                  $kota = $this->db->query("SELECT * FROM master_kota WHERE id_kota != 6")->result_array();
+                  $data['tanggal'] = $tanggal;
+                  $data['kota'] = $kota;
+                  //$data['data'] = $a->result_array();
+                  $data['content'] = "pages/laporan/volumeall_laporan";
+                  $this->load->view('dashboard',$data);
+
+
+
+
+
+              }else{
+
 								$kota = $_SESSION['kota'];
 								if($tanggal == 0){
 									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota' AND status != 9 AND status != 1 GROUP BY master_tps.Kecamatan";
@@ -211,6 +228,8 @@ $a = $this->db->query($query);
 									$this->load->view('dashboard',$data);
 
 						}
+
+          } 
 
 				}
 
@@ -531,7 +550,7 @@ $objPHPExcel->getActiveSheet(0)
             $row = $row + 2;
             $rowplussatu = $row + 1;
             $rowplusdua = $row + 2;
-            
+
 $objPHPExcel->getActiveSheet(0)
             ->setCellValue('A'.$row, 'No')
             ->setCellValue('B'.$row,'Kecamatan')
