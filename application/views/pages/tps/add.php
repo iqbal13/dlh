@@ -291,15 +291,15 @@
                             </div>
                             <div class="form-group">
                                 <label>Foto 1</label><br/>
-                                <input type="file" name="file" />
+                                <input type="file" name="foto_pertama" id="foto_pertama" />
                             </div> 
                              <div class="form-group">
                                 <label>Foto 2</label><br/>
-                                <input type="file" name="file2" />
+                                <input type="file" name="foto_kedua" />
                             </div> 
                              <div class="form-group">
                                 <label>Foto 3</label><br/>
-                                <input type="file" name="file3" />
+                                <input type="file" name="foto_ketiga" />
                             </div> 
                             <button type="submit" name="submit" class="btn btn-success">Save</button>
                             <button type="reset" class="btn btn-warning">Reset</button>

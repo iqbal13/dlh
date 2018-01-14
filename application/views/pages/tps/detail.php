@@ -47,21 +47,41 @@
                      <tr><td>Saluran Air Lindi  </td><td> : </td> <td>                      <?php echo $val['Saluran_Air_Lindi'];?></td></tr>
                      <tr><td>Penampungan Air Lindi  </td><td> : </td> <td>                      <?php echo $val['Penampungan_Air_Lindi'];?></td></tr>
                      <tr><td>Penghijauan    </td><td> : </td> <td>                      <?php echo $val['Penghijauan'];?></td></tr>
-                     <tr><td>Sumber Air </td><td> : </td> <td>                      <?php echo $val['Sumber_Air'];?></td></tr>
-                     <tr><td>Truk   </td><td> : </td> <td>                      <?php echo $val['Truk'];?></td></tr>
-                     <tr><td>Nama Truk  </td><td> : </td> <td>                      <?php echo $val['jenis_truk'];?></td></tr>
-                     <tr><td>Jenis Truk </td><td> : </td> <td>                      <?php echo $val['nomer_pintu_truk'];?></td></tr>
-                     <tr><td>Nomer Truk </td><td> : </td> <td>                      <?php echo $val['Alat_Berat'];?></td></tr>
-                     <tr><td>Alat Berat </td><td> : </td> <td>                      <?php echo $val['Komposting'];?></td></tr>
-                     <tr><td>Composting </td><td> : </td> <td>                      <?php echo $val['Pencacah_Organik'];?></td></tr>
-                     <tr><td>Pencacah Organik   </td><td> : </td> <td>                      <?php echo $val['Pencacah_Anorganik'];?></td></tr>
-                     <tr><td>Pencacah Anorganik </td><td> : </td> <td>                      <?php echo $val['Pengayak'];?></td></tr>
-                     <tr><td>Pengayak   </td><td> : </td> <td>                      <?php echo $val['Alat_Press'];?></td></tr>
-                     <tr><td>Alat Press </td><td> : </td> <td>                      <?php echo $val['Jam_Pengumpulan'];?></td></tr>
-                     <tr><td>Jam Pengumpulan    </td><td> : </td> <td>                      <?php echo $val['Jam_Pengangkutan'];?></td></tr>
-                     <tr><td>Jam Pengngakutan   </td><td> : </td> <td>                      <?php echo $val['Permasalahan'];?></td></tr>
-                     <tr><td>Permasalahan   </td><td> : </td> <td>                      <?php echo $val['Keterangan'];?></td></tr>
-                     <tr><td>Keterangan </td><td> : </td> <td>  
+                     <tr><td> Sumber Air </td> <td> : </td> <td> <?php echo $val['Sumber_Air']; ?> </td> </tr>
+                     <tr><td> TRUK </td> <td> : </td> <td> <?php echo $val['Truk']; ?> </td> </tr>
+                     <tr><td> Jenis Truk </td> <td> : </td> <td> <?php echo $val['jenis_truk']; ?> </td> </tr>
+                     <tr><td> Alat Berat </td> <td> : </td> <td> <?php echo $val['Alat_Berat']; ?> </td> </tr>
+                     <tr><td> Komposting </td> <td> : </td> <td> <?php echo $val['Komposting']; ?> </td> </tr>
+                     <tr><td> Pencacah Organik </td> <td> : </td> <td> <?php echo $val['Pencacah_Organik']; ?> </td> </tr>
+                     <tr><td> Pencacah Anorganik </td> <td> : </td> <td> <?php echo $val['Pencacah_Anorganik']; ?> </td> </tr>
+                     <tr><td> Pengayak </td> <td> : </td> <td> <?php echo $val['Pengayak']; ?> </td> </tr>
+                     <tr><td> Alat Press </td> <td> : </td> <td> <?php echo $val['Alat_Press']; ?> </td> </tr>
+                     <tr><td> Jam Pengumpulan </td> <td> : </td> <td> <?php echo $val['Jam_Pengumpulan']; ?> </td> </tr>
+                     <tr><td> Jam Pengangkutan </td> <td> : </td> <td> <?php echo $val['Jam_Pengangkutan']; ?> </td> </tr>
+                     <tr><td> Permasalahan </td> <td> : </td> <td> <?php echo $val['Permasalahan']; ?> </td> </tr>
+                     <tr><td> Keterangan </td> <td> : </td> <td> <?php echo $val['Keterangan']; ?> </td> </tr>
+                     <tr><td> Luas Lahan </td> <td> : </td> <td> <?php echo $val['Luas_lahan']; ?> </td> </tr>
+                     <tr><td> FOTO tps 1 </td> <td> : </td> <td> <?php if($val['Foto_TPS'] != ''){ ?>
+                        <img src="<?php echo base_url() ?>foto_tps/<?php echo trim($val['Foto_TPS']); ?>" class="img-responsive">
+                        <?php  } ?>
+
+                     </td> </tr>
+
+                       <tr><td> FOTO tps 2 </td> <td> : </td> <td> <?php if($val['foto_tps2'] != ''){ ?>
+                        <img src="<?php echo base_url() ?>foto_tps/<?php echo trim($val['foto_tps2']); ?>" class="img-responsive">
+                        <?php  } ?>
+
+                     </td> </tr>
+
+
+                        <tr><td> FOTO tps 3 </td> <td> : </td> <td> <?php if($val['foto_tps3'] != ''){ ?>
+                        <img src="<?php echo base_url() ?>foto_tps/<?php echo trim($val['foto_tps3']); ?>" class="img-responsive">
+                        <?php  } ?>
+
+                     </td> </tr>
+
+
+
                             </td>
                         </tr>
                      </tr>

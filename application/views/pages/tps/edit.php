@@ -447,17 +447,22 @@
                                 <label>Keterangan</label>
                                  <textarea class="form-control" rows="3" name="keterangan" placeholder="Keterangan"><?=$tps['Keterangan'];?></textarea>
                             </div>
-                            <div class="form-group">
+                               <div class="form-group">
                                 <label>Foto 1</label><br/>
-                                <input type="file" name="file" />
+                                <input type="file" name="foto_pertama" id="foto_pertama" />
+                                <input type="hidden" name="foto_pertamalama" value="<?php echo $tps['Foto_TPS'];?>">
                             </div> 
                              <div class="form-group">
                                 <label>Foto 2</label><br/>
-                                <input type="file" name="file2" />
+                                <input type="file" name="foto_kedua" />
+                                                                <input type="hidden" name="foto_kedualama" value="<?php echo $tps['foto_tps2'];?>">
+
                             </div> 
                              <div class="form-group">
                                 <label>Foto 3</label><br/>
-                                <input type="file" name="file3" />
+                                <input type="file" name="foto_ketiga" />
+                                                                <input type="hidden" name="foto_ketigalama" value="<?php echo $tps['foto_tps3'];?>">
+
                             </div> 
                             <button type="submit" name="submit" class="btn btn-success">Save</button>
                             <button type="reset" class="btn btn-warning">Reset</button>

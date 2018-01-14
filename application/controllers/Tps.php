@@ -120,6 +120,92 @@ public function detail($id = 0)
     $keterangan = $_POST['keterangan'];
 
 
+        $config['upload_path']          = './foto_tps/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10000;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+                $this->load->library('upload', $config);
+
+           
+
+    if($_FILES['foto_pertama']['tmp_name']){
+     if (!$this->upload->do_upload('foto_pertama'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                        // $this->load->view('upload_form', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+         
+                        $foto_pertama = $data['upload_data']['file_name'];
+
+
+
+                }
+
+
+    }else{
+        $foto_pertama = "";
+    }
+
+
+
+    
+    if($_FILES['foto_kedua']['tmp_name']){
+
+    if (!$this->upload->do_upload('foto_kedua'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                        // $this->load->view('upload_form', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+
+                        $foto_kedua = $data['upload_data']['file_name'];
+                }
+
+    }else{
+        $foto_ketiga = "";
+
+    }
+
+
+
+    
+    if($_FILES['foto_ketiga']['tmp_name']){
+
+    if (!$this->upload->do_upload('foto_ketiga'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                        // $this->load->view('upload_form', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+
+
+                        $foto_ketiga = $data['upload_data']['file_name'];
+                }
+
+
+    }else{
+
+        $foto_ketiga = "";
+
+    }
+
+
+
+
+
+
+
 
 
     $query = "INSERT INTO master_tps SET
@@ -156,7 +242,10 @@ public function detail($id = 0)
                                                 Jam_Pengumpulan = '$jam_pengumpulan',
                                                 Jam_Pengangkutan = '$jam_pengangkutan',
                                                 Permasalahan = '$permasalahan',
-                                                Keterangan = '$keterangan'";
+                                                Keterangan = '$keterangan',
+                                                Foto_TPS = '$foto_pertama',
+                                                foto_tps2 = '$foto_kedua',
+                                                foto_tps3 = '$foto_ketiga'";
                                               
   
     $ins = $this->db->query($query);
@@ -216,6 +305,87 @@ public function detail($id = 0)
     $keterangan = $_POST['keterangan'];
 
 
+            $config['upload_path']          = './foto_tps/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10000;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+                $this->load->library('upload', $config);
+
+           
+
+    if($_FILES['foto_pertama']['tmp_name']){
+     if (!$this->upload->do_upload('foto_pertama'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                        // $this->load->view('upload_form', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+         
+                        $foto_pertama = $data['upload_data']['file_name'];
+
+
+
+                }
+
+
+    }else{
+        $foto_pertama = $_POST['foto_pertamalama'];
+    }
+
+
+
+    
+    if($_FILES['foto_kedua']['tmp_name']){
+
+    if (!$this->upload->do_upload('foto_kedua'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                        // $this->load->view('upload_form', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+
+                        $foto_kedua = $data['upload_data']['file_name'];
+                }
+
+    }else{
+        $foto_ketiga = $_POST['foto_kedualama'];
+
+    }
+
+
+
+    
+    if($_FILES['foto_ketiga']['tmp_name']){
+
+    if (!$this->upload->do_upload('foto_ketiga'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                        // $this->load->view('upload_form', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+
+
+                        $foto_ketiga = $data['upload_data']['file_name'];
+                }
+
+
+    }else{
+
+        $foto_ketiga = $_POST['foto_ketigalama'];
+
+    }
+
+
 
 
     $query = "UPDATE master_tps SET
@@ -251,6 +421,9 @@ public function detail($id = 0)
                                                 Jam_Pengumpulan = '$jam_pengumpulan',
                                                 Jam_Pengangkutan = '$jam_pengangkutan',
                                                 Permasalahan = '$permasalahan',
+                                                Foto_TPS = '$foto_pertama',
+                                                foto_tps2 = '$foto_kedua',
+                                                foto_tps3 = '$foto_ketiga',
                                                 Keterangan = '$keterangan' where Kode_tps = '$kode_tps'";
 
                                                 $dt = $this->db->query($query);

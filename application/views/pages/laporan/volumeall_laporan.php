@@ -6,10 +6,8 @@
      		
      		<div class="box box-success">
      				<div class="box-header">
-                        <?php
-                        $tanggal = $this->uri->segment(4);
-                        ?>
-	        		<h3 class="text-center"> Laporan Volume Sampah Per Kota : <?php echo $_SESSION['kota'] ?> <?php if(@$tanggal != '') echo "Pada Tangal : ".tgl_indo($tanggal); ?></h3>
+
+	        		<h3 class="text-center"> Laporan Volume Sampah Per Kota : <?php echo $_SESSION['kota'] ?> <?php if(@$tanggal != '') echo $tanggal; ?></h3>
 
      				</div>
      				<div class="box-body">
@@ -21,10 +19,21 @@
                        ?>
 
                             <a class="btn btn-primary" href="<?php echo $url ?>"> Export </a>
+                        
+                            <?php if(@$tanggal == ""){ ?>
+                                <p> Pilih Tanggal </p>
+                                    <ul>
+                                <?php 
+                                foreach($tgl as $t){ ?>
+                                    <li> <a href="<?php echo base_url() ?>laporan/volume/kota/<?php echo $t['tanggal']; ?>"> <?php echo $t['tanggal']; ?> </a> </li>
+                                <?php } ?>
+                                    </ul>
+                                    <h3> Laporan Volume per TPS Total  </h3>
+                            <?php  }else{ echo "<h3> Laporan Volume per TPS tanggal ".$tanggal."</h3>"; } ?>
+     				         
 
 
-                    
-     				           <table class="table table-primary">
+                               <table class="table table-primary">
                                     <tr>
                                         <th> No </th>
                                         <th> Kecamatan </th>

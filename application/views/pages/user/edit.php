@@ -64,7 +64,7 @@
                                         <select class="form-control" name="level">
                                                 <option value="Admin"> Admin </option>
                                                 <option value="Supervisor1"> Supervisor 1 </option>
-                                                <option value="Supervisor2"> Supervisor 1 </option>
+                                                <option value="Supervisor2"> Supervisor 2 </option>
                                                 <option value="Operator"> Operator </option>
 
                                         </select>

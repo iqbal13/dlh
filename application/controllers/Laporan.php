@@ -11,6 +11,68 @@
 				}
 
 
+
+        public function laporan_volume($tipe = "bulanan", $bulan = 1, $jenis = "kecamatan"){
+          $tahun = date('Y');
+
+          if($jenis == 'kecamatan'){ 
+
+
+
+          if($tipe == "bulanan"){
+          $data['content'] = "pages/laporan/laporan_volume_spv1";
+
+          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,1,4) = $tahun GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
+
+          $bulan = array();
+          foreach($data['bulan'] as $b){
+            array_push($bulan,bulan($b['bulan']));
+
+
+          }
+          $data['bulannya'] = $bulan;
+
+        }else{
+          $data['bulan'] = bulan($bulan);
+          $data['content'] = "pages/laporan/laporan_volume_spv1pertanggal";
+          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+
+
+        }
+
+
+      }else if($jenis == 'kota'){
+
+           if($tipe == "bulanan"){
+          $data['content'] = "pages/laporan/laporan_volume_spv2";
+
+          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,1,4) = $tahun   GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
+
+          $bulan = array();
+          foreach($data['bulan'] as $b){
+            array_push($bulan,bulan($b['bulan']));
+
+
+          }
+          $data['bulannya'] = $bulan;
+
+        }else{
+          $data['bulan'] = bulan($bulan);
+          $data['content'] = "pages/laporan/laporan_volume_spv2pertanggal";
+          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+
+
+        }
+
+
+
+
+      }
+
+          $this->load->view('dashboard',$data);
+        }
+
+
 				public function exportexcel($tipe = "kecamatan", $tanggal = 0)
         {
  

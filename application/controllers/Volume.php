@@ -109,10 +109,18 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 				}
 
 
+				if($_SESSION['level'] == 'Operator'){
+					$status = 1;
+				}else if($_SESSION['level'] == 'Supervisor1'){
+					$status = 2;
+				}else if($_SESSION['level'] == 'Admin'){
+					$status = 3;
+				}
+
 					$dt = array(
 						'kode_tps' => $kode_tps,
 						'volume' => $volume,
-						'status' => 1,
+						'status' => $status,
 						'tanggal' => $tanggal,
 						'waktu' => date('Y-m-d H:i:s'),
 						'id_user' => $this->session->userdata('id_user'),
@@ -141,11 +149,19 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 					$tanggal = $_POST['tanggal'];
 				}
 
+	if($_SESSION['level'] == 'Operator'){
+					$status = 1;
+				}else if($_SESSION['level'] == 'Supervisor1'){
+					$status = 2;
+				}else if($_SESSION['level'] == 'Admin'){
+					$status = 3;
+				}
+
 
 					$dt = array(
 						'kode_tps' => $kode_tps,
 						'volume' => $volume,
-						'status' => 1,
+						'status' => $status,
 						'tanggal' => $tanggal,
 						'waktu' => date('Y-m-d H:i:s'),
 						'id_user' => $this->session->userdata('id_user'),
