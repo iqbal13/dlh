@@ -6,8 +6,8 @@
             
             <div class="box box-success">
                     <div class="box-header">
-                   <a href="<?php echo base_url() ?>laporan/laporan_volume" class="btn btn-primary"> Kembali </a> 
-                    <h3 class="text-center"> Data Volume Sampah Kota <?php echo $_SESSION['kota']; ?>
+<!--                    <a href="<?php echo base_url() ?>laporan/laporan_volume" class="btn btn-primary"> Kembali </a> 
+ -->                    <h3 class="text-center"> Data Volume Sampah Kota <?php echo $_SESSION['kota']; ?>
 
                      <br /> Bulan : <?php echo $bulan; ?> </h3>
 

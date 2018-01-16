@@ -57,6 +57,7 @@ public function detail($id = 0)
 
         }
 
+
 		$data['js_under'] = "pages/tps/js_under_add";
 		$this->load->view('dashboard',$data);
 	}

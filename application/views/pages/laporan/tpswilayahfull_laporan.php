@@ -42,10 +42,11 @@
                                                 <th colspan="2" class="text-center"> Pool Gerobak </th>
                                                 <th colspan="2" class="text-center"> Pool Kontainer </th>
                                                 <th colspan="2" class="text-center"> Bak Beton </th>
-                                                <th colspan="2" class="text-center"> DLL </th>
+                                                <th colspan="2" class="text-center"> DIPO </th>
+                                                <th colspan="2" class="text-center"> TPS / TPS 3R </th>
                                             </tr>
                                             <tr>
-                                                <?php for($x=1;$x<=4;$x++){ ?>
+                                                <?php for($x=1;$x<=5;$x++){ ?>
                                                 <th class="text-center"> Unit </th>
                                                 <th  class="text-center"> Kendaraan </th>
                                                 <?php  } ?>
@@ -60,8 +61,10 @@
                                             $total_kendaraanpoolcontainer = 0;
                                             $total_bakbeton = 0;
                                             $total_kendaraanbakbeton = 0;
-                                            $total_dll = 0;
-                                            $total_kendaarandll = 0;
+                                            $total_dipo = 0;
+                                            $total_kendaraandipo = 0;
+                                               $total_tps3r = 0;
+                                            $total_kendaraantps3r = 0;
                                             foreach($tps as $k => $val):
 
                                          $total_poolgerobak = $total_poolgerobak + $val['pool_gerobak'];
@@ -70,8 +73,10 @@
                                             $total_kendaraanpoolcontainer = $total_kendaraanpoolcontainer + $val['kendaraan_poolcontainer'];
                                             $total_bakbeton = $total_bakbeton  + $val['bak_beton'];
                                             $total_kendaraanbakbeton = $total_kendaraanbakbeton + $val['kendaraan_bakbeton'];
-                                            $total_dll = $total_dll + $val['dipo'] + $val['tps3r'];
-                                            $total_kendaarandll = $total_kendaarandll + $val['kendaraan_dipo'] + $val['kendaraan_tps3r'];
+                                            $total_dipo = $total_dipo + $val['dipo'];
+                                            $total_kendaraandipo = $total_kendaraandipo + $val['kendaraan_dipo'];
+                                             $total_tps3r = $total_tps3r + $val['tps3r'];
+                                            $total_kendaraantps3r = $total_kendaraantps3r + $val['kendaraan_tps3r'];
                                              ?>
                                                 <tr>
                                                     <td> <?php echo $k+1; ?> </td>
@@ -82,8 +87,10 @@
                                                     <td> <?php echo $val['kendaraan_poolcontainer']; ?></td>
                                                     <td> <?php echo $val['bak_beton']; ?></td>
                                                     <td> <?php echo $val['kendaraan_bakbeton']; ?></td>
-                                                    <td> <?php echo $val['dipo']; + $val['tps3r'] ?></td>
-                                                    <td> <?php echo $val['kendaraan_dipo'] + $val['kendaraan_tps3r']; ?></td>
+                                                    <td> <?php echo $val['dipo']; ?> </td>
+                                                    <td> <?php echo $val['kendaraan_dipo']; ?> </td>
+                                                    <td> <?php echo $val['tps3r']; ?></td>
+                                                    <td> <?php echo $val['kendaraan_tps3r']; ?></td>
                                                 </tr>
 
                                             <?php endforeach; ?>
@@ -95,8 +102,10 @@
                                                 <td> <?=$total_kendaraanpoolcontainer; ?></td>
                                                 <td> <?=$total_bakbeton; ?></td>
                                                 <td> <?=$total_kendaraanbakbeton; ?></td>
-                                                <td> <?=$total_dll;?></td>
-                                                <td> <?=$total_kendaarandll; ?></td>
+                                                <td> <?=$total_dipo;?></td>
+                                                <td> <?=$total_kendaraandipo; ?></td>
+                                                <td> <?=$total_tps3r;?></td>
+                                                <td> <?=$total_kendaraantps3r; ?></td>
                                             </tr>
                                         </tbody>
                             </table>

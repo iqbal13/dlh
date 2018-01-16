@@ -69,7 +69,7 @@
             if($this->session->userdata('level') == 'Admin'){ ?>
 
                 <li><a href="<?php echo base_url()?>laporan/tps_perkota"> Laporan TPS Seluruh </a> </li>
-    <li><a href="<?php echo base_url() ?>laporan/volume/kota"> Laporan Volume Sampah <br /> Seluruh Wilayah </a> </li>
+    <li><a href="<?php echo base_url() ?>laporan/laporan_volume/bulanan/1/kota"> Laporan Volume Sampah <br /> Seluruh Wilayah </a> </li>
 
 
 <?php

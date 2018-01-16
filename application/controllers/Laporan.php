@@ -22,7 +22,7 @@
           if($tipe == "bulanan"){
           $data['content'] = "pages/laporan/laporan_volume_spv1";
 
-          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,1,4) = $tahun GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
+          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,1,4) = $tahun  AND (status = 2 OR status = 3)  GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
 
           $bulan = array();
           foreach($data['bulan'] as $b){
@@ -35,7 +35,7 @@
         }else{
           $data['bulan'] = bulan($bulan);
           $data['content'] = "pages/laporan/laporan_volume_spv1pertanggal";
-          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun AND (status = 2 OR status = 3) GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
 
 
         }
@@ -43,10 +43,12 @@
 
       }else if($jenis == 'kota'){
 
+          if($_SESSION['level'] == 'Supervisor2'){
+
            if($tipe == "bulanan"){
           $data['content'] = "pages/laporan/laporan_volume_spv2";
 
-          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,1,4) = $tahun   GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
+          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,1,4) = $tahun   AND (status = 2 OR status = 3)  GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
 
           $bulan = array();
           foreach($data['bulan'] as $b){
@@ -59,10 +61,26 @@
         }else{
           $data['bulan'] = bulan($bulan);
           $data['content'] = "pages/laporan/laporan_volume_spv2pertanggal";
-          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun   AND (status = 2 OR status = 3) GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
 
 
         }
+
+      }else if($_SESSION['level'] == 'Admin'){
+
+        if($tipe == 'bulanan'){
+          $data['content'] = "pages/laporan/laporan_volume_admin";
+
+          $data['kota'] = $this->db->get_where('master_kota')->result_array();
+
+        }else{
+          $data['content'] = "pages/laporan/laporan_volume_admin_pertanggal";
+
+          $data['kota'] = $this->db->get_where('master_kota')->result_array();
+
+        }
+
+      }
 
 
 
@@ -476,7 +494,8 @@ $objPHPExcel->getActiveSheet(0)
 
 
             $objPHPExcel->getActiveSheet()->setTitle('Laporan Per Kecamatan');
- 
+ $objPHPExcel->getActiveSheet()->setBorder('A3:P'.$row, 'thin');
+
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
  
             //sesuaikan headernya 
@@ -518,7 +537,8 @@ $objPHPExcel->getActiveSheet(0)
             ->setCellValue('C4','Pool Gerobak')
             ->setCellValue('E4','Pool Kontainer')
             ->setCellValue('G4','Bak Beton')
-            ->setCellValue('I4','Lainya')
+            ->setCellValue('I4','DIPO')
+            ->setCellValue('K4','TPS / TPS 3R')
             ->setCellValue('C5','Unit')
             ->setCellValue('D5','Kendaraan')
             ->setCellValue('E5','Unit')
@@ -526,7 +546,9 @@ $objPHPExcel->getActiveSheet(0)
             ->setCellValue('G5','Unit')
             ->setCellValue('H5','Kendaraan')
             ->setCellValue('I5','Unit')
-            ->setCellValue('J5','Kendaraan');
+            ->setCellValue('J5','Kendaraan')  
+            ->setCellValue('K5','Unit')
+            ->setCellValue('L5','Kendaraan');
 
   $total_poolgerobak = 0;
                                             $total_kendaraanpoolgerobak = 0; 
@@ -534,8 +556,11 @@ $objPHPExcel->getActiveSheet(0)
                                             $total_kendaraanpoolcontainer = 0;
                                             $total_bakbeton = 0;
                                             $total_kendaraanbakbeton = 0;
-                                            $total_dll = 0;
-                                            $total_kendaarandll = 0;
+                                            $total_dipo = 0;
+                                            $total_tps3r = 0;                                         
+                                               $total_kendaraandipo = 0;
+                                            $total_kendaraantps3r = 0;
+
               foreach($b as $k => $val){
 
 
@@ -545,9 +570,14 @@ $objPHPExcel->getActiveSheet(0)
                                             $total_kendaraanpoolcontainer = $total_kendaraanpoolcontainer + $val['kendaraan_poolcontainer'];
                                             $total_bakbeton = $total_bakbeton  + $val['bak_beton'];
                                             $total_kendaraanbakbeton = $total_kendaraanbakbeton + $val['kendaraan_bakbeton'];
-                                            $total_dll = $total_dll + $val['dipo'] + $val['tps3r'];
-                                            $total_kendaarandll = $total_kendaarandll + $val['kendaraan_dipo'] + $val['kendaraan_tps3r'];
+                                          //  $total_dll = $total_dll + $val['dipo'] + $val['tps3r'];
+                                            //$total_kendaarandll = $total_kendaarandll + $val['kendaraan_dipo'] + $val['kendaraan_tps3r'];
+                                            $total_dipo = $total_dipo + $val['dipo'];
+                                            $total_kendaraandipo = $total_kendaraandipo + $val['kendaraan_dipo'];
 
+
+                                            $total_tps3r = $total_tps3r + $val['tps3r'];
+                                            $total_kendaraantps3r  = $total_kendaraantps3r + $val['kendaraan_tps3r'];
 
               		$objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$k+1);
               		$objPHPExcel->getActiveSheet()->setCellValue('B'.$row,$val['Kecamatan']);
@@ -557,8 +587,10 @@ $objPHPExcel->getActiveSheet(0)
               		$objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$val['kendaraan_poolcontainer']);
               		$objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$val['bak_beton']);
               		$objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$val['kendaraan_bakbeton']);
-              		$objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$val['dipo'] + $val['tps3r']);
-              		$objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$val['kendaraan_dipo'] + $val['kendaraan_tps3r']);
+              		$objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$val['dipo']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$val['kendaraan_dipo']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$val['tps3r']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$val['kendaraan_tps3r']);
               			$row = $row + 1;
               }
 
@@ -570,9 +602,20 @@ $objPHPExcel->getActiveSheet(0)
               		$objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$total_kendaraanpoolcontainer);
               		$objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$total_bakbeton);
               		$objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$total_kendaraanbakbeton);
-              		$objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$total_dll);
-              		$objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$total_kendaarandll);
+              	 $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$total_dipo);
+                  $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$total_kendaraandipo);
+  $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$total_tps3r);
+                  $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$total_kendaraantps3r);
 
+
+  $styleArray = array(
+      'borders' => array(
+          'allborders' => array(
+              'style' => PHPExcel_Style_Border::BORDER_THIN
+          )
+      )
+  );
+$objPHPExcel->getDefaultStyle()->applyFromArray($styleArray);
 
             $objPHPExcel->getActiveSheet()->setTitle('Laporan Per Wilayah');
  
@@ -590,6 +633,7 @@ $objPHPExcel->getActiveSheet(0)
             $objWriter->save("php://output");
 
 }else{
+
 $kota = $this->db->query("SELECT * FROM master_kota WHERE id_kota != 6")->result_array();
   // $a = $this->db->get_where('v_laporan_tps_full',array('wilayah' => $_SESSION['kota']));
   //   $b = $a->result_array();
@@ -620,26 +664,30 @@ $objPHPExcel->getActiveSheet(0)
             ->setCellValue('C'.$rowplussatu,'Pool Gerobak')
             ->setCellValue('E'.$rowplussatu,'Pool Kontainer')
             ->setCellValue('G'.$rowplussatu,'Bak Beton')
-            ->setCellValue('I'.$rowplussatu,'Lainya')
-            ->setCellValue('C'.$rowplussatu,'Unit')
+            ->setCellValue('I'.$rowplussatu,'DIPO')
+            ->setCellValue('K'.$rowplussatu,'TPS / TPS 3R')
+            ->setCellValue('C'.$rowplusdua,'Unit')
             ->setCellValue('D'.$rowplusdua,'Kendaraan')
             ->setCellValue('E'.$rowplusdua,'Unit')
             ->setCellValue('F'.$rowplusdua,'Kendaraan')
             ->setCellValue('G'.$rowplusdua,'Unit')
             ->setCellValue('H'.$rowplusdua,'Kendaraan')
             ->setCellValue('I'.$rowplusdua,'Unit')
-            ->setCellValue('J'.$rowplusdua,'Kendaraan');
+            ->setCellValue('J'.$rowplusdua,'Kendaraan')
+               ->setCellValue('K'.$rowplusdua,'Unit')
+            ->setCellValue('L'.$rowplusdua,'Kendaraan');
 
-            $row = $row + 1;
+            $row = $rowplusdua + 1;
   $total_poolgerobak = 0;
                                             $total_kendaraanpoolgerobak = 0; 
                                             $total_poolcontainer = 0;
                                             $total_kendaraanpoolcontainer = 0;
                                             $total_bakbeton = 0;
                                             $total_kendaraanbakbeton = 0;
-                                            $total_dll = 0;
-                                            $total_kendaarandll = 0;
-
+                                            $total_dipo = 0;
+                                            $total_kendaraandipo = 0;
+                                            $total_tps3r = 0;
+                                            $total_kendaraantps3r = 0;
 
                                           // $row = 7;
 
@@ -653,8 +701,11 @@ $objPHPExcel->getActiveSheet(0)
                                             $total_kendaraanpoolcontainer = $total_kendaraanpoolcontainer + $val['kendaraan_poolcontainer'];
                                             $total_bakbeton = $total_bakbeton  + $val['bak_beton'];
                                             $total_kendaraanbakbeton = $total_kendaraanbakbeton + $val['kendaraan_bakbeton'];
-                                            $total_dll = $total_dll + $val['dipo'] + $val['tps3r'];
-                                            $total_kendaarandll = $total_kendaarandll + $val['kendaraan_dipo'] + $val['kendaraan_tps3r'];
+                                            $total_dipo = $total_dipo + $val['dipo'];
+                                            $total_kendaraandipo = $total_kendaraandipo + $val['kendaraan_dipo'];
+
+                                              $total_tps3r = $total_tps3r +  $val['tps3r'];
+                                            $total_kendaraantps3r = $total_kendaraantps3r + $val['kendaraan_tps3r'];
 
 
                   $objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$k+1);
@@ -665,8 +716,10 @@ $objPHPExcel->getActiveSheet(0)
                   $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$val['kendaraan_poolcontainer']);
                   $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$val['bak_beton']);
                   $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$val['kendaraan_bakbeton']);
-                  $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$val['dipo'] + $val['tps3r']);
-                  $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$val['kendaraan_dipo'] + $val['kendaraan_tps3r']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$val['dipo']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$val['kendaraan_dipo']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$val['tps3r']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$val['kendaraan_tps3r']);
                     $row = $row + 1;
               }
 
@@ -678,9 +731,10 @@ $objPHPExcel->getActiveSheet(0)
                   $objPHPExcel->getActiveSheet()->setCellValue('F'.$row,$total_kendaraanpoolcontainer);
                   $objPHPExcel->getActiveSheet()->setCellValue('G'.$row,$total_bakbeton);
                   $objPHPExcel->getActiveSheet()->setCellValue('H'.$row,$total_kendaraanbakbeton);
-                  $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$total_dll);
-                  $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$total_kendaarandll);
-
+                  $objPHPExcel->getActiveSheet()->setCellValue('I'.$row,$total_dipo);
+                  $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$total_kendaraandipo);
+  $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$total_tps3r);
+                  $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$total_kendaraantps3r);
                   $row =  $row + 2;
 
 }
