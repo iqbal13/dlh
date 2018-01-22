@@ -17,6 +17,7 @@
                                                 <th rowspan="3" class="text-center"> No </th>
                                                 <th rowspan="3" class="text-center"> Kecamatan </th>
                                                 <th colspan="10" class="text-center">   Jenis TPS </TH>
+                                                <th colspan="2" rowspan="2" class="text-center"> Jumlah </th>
                                             </tr>
                                             <tr>
                                                 <th colspan="2" class="text-center"> Pool Gerobak </th>
@@ -30,6 +31,8 @@
                                                 <th class="text-center"> Unit </th>
                                                 <th  class="text-center"> Kendaraan </th>
                                                 <?php  } ?>
+                                                <th> Unit </th>
+                                                <th> Kendaraan </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,6 +77,11 @@
                                                     <td> <?php echo $val['kendaraan_dipo']; ?> </td>
                                                     <td> <?php echo $val['tps3r']; ?> </td>
                                                     <td> <?php echo $val['kendaraan_tps3r']; ?> </td>
+                                                    <td> <?php echo $val['pool_gerobak'] + $val['pool_container'] + $val['bak_beton'] + $val['dipo'] + $val['tps3r']; ?>  </td>
+                                                    <td> 
+                                                        <?php echo $val['kendaraan_poolgerobak'] + $val['kendaraan_poolcontainer'] + $val['kendaraan_bakbeton'] + $val['kendaraan_dipo'] + $val['kendaraan_tps3r']; ?> </td>
+                                                    </td>
+
                                                  <!--    <td> <?php echo $val['dipo']; + $val['tps3r'] ?></td>
                                                     <td> <?php echo $val['kendaraan_dipo'] + $val['kendaraan_tps3r']; ?></td> -->
                                                 </tr>
@@ -91,6 +99,9 @@
                                                 <td> <?=$total_kendaraandipo; ?></td> 
                                                 <td> <?=$total_tps3r;?></td>
                                                 <td> <?=$total_kendaraantps3r; ?></td>
+                                                <td> <?=$total_poolgerobak + $total_poolcontainer + $total_bakbeton + $total_dipo + $total_tps3r; ?>  </td>
+                                                <td> <?=$total_kendaraanpoolgerobak + $total_kendaraanpoolcontainer + $total_kendaraanbakbeton + $total_kendaraandipo + $total_kendaraantps3r; ?>  </td>
+
                                             </tr>
                                         </tbody>
                             </table>

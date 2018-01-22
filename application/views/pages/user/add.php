@@ -30,7 +30,23 @@
                                     <input type="text" class="form-control" name="password"  required="required">
 
                             </div>
-                                <div class="form-group">
+
+                              <div class="form-group">
+                                    <label>  Level (Jika level user adalah admin, maka bisa melihat data semua wilayah) </label>
+                                        <select class="form-control" name="level" id="level">
+                                            <option> Pilih Level </option>
+                                                <option value="Admin"> Admin </option>
+                                                <option value="Supervisor1"> Supervisor 1 </option>
+                                                <option value="Supervisor2"> Supervisor 2 </option>
+                                                <option value="Operator"> Operator </option>
+
+                                        </select>
+
+                            </div>
+
+
+
+                                <div class="form-group" id="inputkota">
                                     <label>  Kota </label>
      <select class="form-control" name="kota" id="kota">
                     <option> Pilih Kota </option>
@@ -43,7 +59,7 @@
                                         </select>
 
                             </div>
-                                <div class="form-group">
+                                <div class="form-group" id="inputkecamatan">
                                     <label>  Kecamatan </label>
      <select class="form-control" name="kecamatan" id="kecamatan">
         <option> Pilih Kota  DUlu </option>
@@ -51,17 +67,7 @@
 
                             </div>
 
-                                <div class="form-group">
-                                    <label>  Level (Jika level user adalah admin, maka bisa melihat data semua wilayah) </label>
-                                        <select class="form-control" name="level">
-                                                <option value="Admin"> Admin </option>
-                                                <option value="Supervisor1"> Supervisor 1 </option>
-                                                <option value="Supervisor2"> Supervisor 2 </option>
-                                                <option value="Operator"> Operator </option>
-
-                                        </select>
-
-                            </div>
+                              
      							<button type="submit" class="btn btn-primary"> Simpan </button>
      					</form>
 
@@ -70,4 +76,35 @@
      		</div>
         </div>
       </div>
-    </section>  
+    </section>
+
+
+    <script>
+       $("#level").on('change', function(){
+        var nilai = $(this).val();
+        if(nilai == 'Admin'){
+
+            $("#inputkecamatan").hide();
+            $("#inputkota").hide();
+
+        }else if(nilai == 'Supervisor1'){
+            $("#inputkecamatan").show();
+            $("#inputkota").show();
+
+        }else if(nilai == 'Supervisor2'){
+        $("#inputkecamatan").hide();
+
+        }else if(nilai == 'Operator'){
+            $("#inputkecamatan").show();
+                        $("#inputkota").show();
+
+        }else{
+             $("#inputkecamatan").show();
+                        $("#inputkota").show();
+        }
+
+
+
+       });
+
+    </script>  

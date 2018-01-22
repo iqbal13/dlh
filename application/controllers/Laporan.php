@@ -425,6 +425,7 @@ $objPHPExcel->getActiveSheet(0)
             ->setCellValue('B3','Kode TPS')
             ->setCellValue('C3','Nama TPS')
             ->setCellValue('D3','Jenis TPS')
+            ->setCellValue('M4','Jumlah')
             ->setCellValue('D4','DIPO')
             ->setCellValue('E4','TPS / TPS 3R')
             ->setCellValue('F4','Pool Gerobak')
@@ -548,7 +549,10 @@ $objPHPExcel->getActiveSheet(0)
             ->setCellValue('I5','Unit')
             ->setCellValue('J5','Kendaraan')  
             ->setCellValue('K5','Unit')
-            ->setCellValue('L5','Kendaraan');
+            ->setCellValue('L5','Kendaraan')
+            ->setCellValue('M4','Jumlah')
+            ->setCellValue('M5','Unit')
+            ->setCellValue('N5','Kendaraan');
 
   $total_poolgerobak = 0;
                                             $total_kendaraanpoolgerobak = 0; 
@@ -562,7 +566,8 @@ $objPHPExcel->getActiveSheet(0)
                                             $total_kendaraantps3r = 0;
 
               foreach($b as $k => $val){
-
+                $total = $val['pool_gerobak'] + $val['pool_container'] + $val['bak_beton'] + $val['dipo'] + $val['tps3r'];
+                $total_kendaraan = $val['kendaraan_poolcontainer'] + $val['kendaraan_poolgerobak'] + $val['kendaraan_bakbeton'] + $val['kendaraan_dipo'] + $val['kendaraan_tps3r'];
 
                                          $total_poolgerobak = $total_poolgerobak + $val['pool_gerobak'];
                                             $total_kendaraanpoolgerobak = $total_kendaraanpoolgerobak + $val['kendaraan_poolgerobak']; 
@@ -591,6 +596,8 @@ $objPHPExcel->getActiveSheet(0)
                   $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$val['kendaraan_dipo']);
                   $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$val['tps3r']);
                   $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$val['kendaraan_tps3r']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$total);
+                  $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$total_kendaraan);
               			$row = $row + 1;
               }
 
@@ -606,6 +613,8 @@ $objPHPExcel->getActiveSheet(0)
                   $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$total_kendaraandipo);
   $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$total_tps3r);
                   $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$total_kendaraantps3r);
+                  $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$total_poolgerobak + $total_poolcontainer + $total_bakbeton + $total_dipo + $total_tps3r);
+                  $objPHPExcel->getActiveSheet()->setCellValue('n'.$row,$total_kendaraanpoolgerobak + $total_kendaraanpoolcontainer + $total_kendaraanbakbeton + $total_kendaraandipo + $total_kendaraantps3r);
 
 
   $styleArray = array(
@@ -661,6 +670,8 @@ $objPHPExcel->getActiveSheet(0)
             ->setCellValue('A'.$row, 'No')
             ->setCellValue('B'.$row,'Kecamatan')
             ->setCellValue('C'.$row,'Jenis TPS')
+            ->setCellValue('C'.$row,'Jenis TPS')
+            ->setCellValue('M'.$row,'Jumlah')
             ->setCellValue('C'.$rowplussatu,'Pool Gerobak')
             ->setCellValue('E'.$rowplussatu,'Pool Kontainer')
             ->setCellValue('G'.$rowplussatu,'Bak Beton')
@@ -675,7 +686,9 @@ $objPHPExcel->getActiveSheet(0)
             ->setCellValue('I'.$rowplusdua,'Unit')
             ->setCellValue('J'.$rowplusdua,'Kendaraan')
                ->setCellValue('K'.$rowplusdua,'Unit')
-            ->setCellValue('L'.$rowplusdua,'Kendaraan');
+            ->setCellValue('L'.$rowplusdua,'Kendaraan')
+             ->setCellValue('M'.$rowplusdua,'Unit')
+            ->setCellValue('N'.$rowplusdua,'Kendaraan');
 
             $row = $rowplusdua + 1;
   $total_poolgerobak = 0;
@@ -720,6 +733,8 @@ $objPHPExcel->getActiveSheet(0)
                   $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$val['kendaraan_dipo']);
                   $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$val['tps3r']);
                   $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$val['kendaraan_tps3r']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$val['pool_gerobak'] + $val['pool_container'] + $val['bak_beton'] + $val['dipo'] + $val['tps3r']);
+                  $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$val['kendaraan_poolgerobak'] + $val['kendaraan_poolcontainer'] + $val['kendaraan_bakbeton'] + $val['kendaraan_dipo'] + $val['kendaraan_tps3r']);
                     $row = $row + 1;
               }
 
@@ -735,6 +750,8 @@ $objPHPExcel->getActiveSheet(0)
                   $objPHPExcel->getActiveSheet()->setCellValue('J'.$row,$total_kendaraandipo);
   $objPHPExcel->getActiveSheet()->setCellValue('K'.$row,$total_tps3r);
                   $objPHPExcel->getActiveSheet()->setCellValue('L'.$row,$total_kendaraantps3r);
+                  $objPHPExcel->getActiveSheet()->setCellValue('M'.$row,$total_poolgerobak + $total_poolcontainer + $total_bakbeton + $total_dipo + $total_tps3r);
+                  $objPHPExcel->getActiveSheet()->setCellValue('N'.$row,$total_kendaraanpoolgerobak + $total_kendaraanpoolcontainer + $total_kendaraanbakbeton + $total_kendaraandipo + $total_kendaraantps3r);
                   $row =  $row + 2;
 
 }

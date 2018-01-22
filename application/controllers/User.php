@@ -51,7 +51,8 @@ class User extends CI_Controller {
 		$aksi = $_POST['aksi'];
 
 			if($aksi == "tambah"){
-			
+				
+
 
 
 					$dt = array(
@@ -59,8 +60,8 @@ class User extends CI_Controller {
 						'username' => $_POST['username'],
 						'password' => $_POST['password'],
 						'level' => $_POST['level'],
-						'kecamatan' => $_POST['kecamatan'],
-						'id_kota' => $_POST['kota']
+						'kecamatan' => @$_POST['kecamatan'],
+						'id_kota' => @$_POST['kota']
 						);
 
 					$query = $this->db->insert('user',$dt);
@@ -82,8 +83,8 @@ class User extends CI_Controller {
 						'nama_user' => $_POST['nama_user'],
 						'username' => $_POST['username'],
 						'level' => $_POST['level'],
-						'kecamatan' => $_POST['kecamatan'],
-						'id_kota' => $_POST['kota']
+						'kecamatan' => @$_POST['kecamatan'],
+						'id_kota' => @$_POST['kota']
 						);
 
 				}else{
@@ -92,8 +93,8 @@ class User extends CI_Controller {
 						'username' => $_POST['username'],
 						'level' => $_POST['level'],
 						'password' => $_POST['password'],
-						'kecamatan' => $_POST['kecamatan'],
-						'id_kota' => $_POST['kota']
+						'kecamatan' => @$_POST['kecamatan'],
+						'id_kota' => @$_POST['kota']
 						);
 				}
 
