@@ -81,12 +81,20 @@ public function detail($id = 0)
 	function proses(){
 		//$aksi = $_POST['aksi'];
 
+
+
         $aksi = $_POST['aksi'];
 			if($aksi == "tambah"){
-			
+		
+            
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('kode_tps','Kode TPS','required|is_unique[master_tps.Kode_tps]');
+
 		  $kode_tps = $_POST['kode_tps'];
-				 $nama_tps = $_POST['nama_tps'];
-    $koordinat = $_POST['koordinat'];
+	
+    $nama_tps = $_POST['nama_tps'];
+    $koordinat = $_POST['lintang'];
+    $bujur = $_POST['bujur'];
     $penanggung_jawab = $_POST['penanggung_jawab'];
     $no_hp = $_POST['no_hp'];
     $alamat_tps = $_POST['alamat_tps'];
@@ -120,12 +128,14 @@ public function detail($id = 0)
     $permasalahan = $_POST['permasalahan'];
     $keterangan = $_POST['keterangan'];
 
+    $filename = strtotime(date('Y-m-d')).mt_rand(1,100);
 
-        $config['upload_path']          = './foto_tps/';
+                $config['upload_path']          = './foto_tps/';
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 10000;
                 $config['max_width']            = 5000;
                 $config['max_height']           = 5000;
+                $config['file_name'] = $filename;
                 $this->load->library('upload', $config);
 
            
@@ -144,7 +154,6 @@ public function detail($id = 0)
                         $foto_pertama = $data['upload_data']['file_name'];
 
 
-
                 }
 
 
@@ -152,7 +161,15 @@ public function detail($id = 0)
         $foto_pertama = "";
     }
 
+    $filename2 = strtotime(date('Y-m-d')).mt_rand(1,100);
 
+                $config['upload_path']          = './foto_tps/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10000;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+                $config['file_name'] = $filename2;
+                $this->load->library('upload', $config);
 
     
     if($_FILES['foto_kedua']['tmp_name']){
@@ -175,7 +192,15 @@ public function detail($id = 0)
 
     }
 
+    $filename3 = strtotime(date('Y-m-d')).mt_rand(1,100);
 
+     $config['upload_path']          = './foto_tps/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10000;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+                $config['file_name'] = $filename2;
+                $this->load->library('upload', $config);
 
     
     if($_FILES['foto_ketiga']['tmp_name']){
@@ -213,6 +238,7 @@ public function detail($id = 0)
                                                 Kode_tps = '$kode_tps',
                                                 Nama_TPS = '$nama_tps',
                                                 Kordinat_Lintang = '$koordinat',
+                                                Kordinat_Bujur = '$bujur',
                                                 Penanggung_Jawab = '$penanggung_jawab',
                                                 No_HP = '$no_hp',
                                                 Alamat_TPS = '$alamat_tps',
@@ -356,7 +382,7 @@ public function detail($id = 0)
                 }
 
     }else{
-        $foto_ketiga = $_POST['foto_kedualama'];
+        $foto_kedua = $_POST['foto_kedualama'];
 
     }
 
@@ -436,18 +462,22 @@ public function detail($id = 0)
 	}
 
 
-	public function delete($id = 0)
+	public function delete($id)
 	{
-            if($id = ""){
+        $id = $this->uri->segment(3);
+            if($id == ""){
                 redirect('tps');
-            }
-			$a = $this->db->delete('master_tps',array('kode_tps' => $id));
+            }else{
+            $qq = "DELETE FROM master_tps WHERE Kode_tps = '$id'";
+            $a = $this->db->query($qq);
 			if($a){
 				$this->session->set_flashdata('item','<div class="alert alert-info"> Data TPS Berhasil Dihapus </div>');
 			}
 
 			redirect('tps');
 	}
+
+}
 
 
 

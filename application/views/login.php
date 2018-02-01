@@ -28,8 +28,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <style type="text/css">
     body {
-      background: url('<?php echo base_url() ?>img/bg.jpg') no-repeat center 100%;
+      background: url('<?php echo base_url() ?>img/bg.jpg') no-repeat center;
       background-size: cover;
+      overflow: none;
+      height: 100%;
     }
   </style>
 </head>

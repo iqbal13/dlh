@@ -22,13 +22,12 @@
      								foreach($tps as $t){ ?>
      									<option value="<?php echo $t['Kode_tps'] ?>"> <?php echo $t['Kode_tps'] ?> - <?php echo $t['Nama_TPS'] ?> </option>
      								<?php } ?>
-
      								</select>
 
      						</div>
 
      						<div class="form-group">
-     								<label>  Volume Sampah (M2) </label>
+     								<label>  Volume Sampah (M3) </label>
      								<input type="text" class="form-control" name="volume"  required="required">
 
      						</div>

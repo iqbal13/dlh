@@ -21,14 +21,22 @@
                         <th> Jumlah </th>
                         <th> Detail </th>
                     </tr>
-                    <?php foreach($tanggal as $b => $val){ ?>
+                    <?php 
+                        if(count($tanggal) == 0){
+                                echo "<tr><td colspan='4'> Belum ada Data </td> </tr>";
+
+                        }else{
+                    foreach($tanggal as $b => $val){ ?>
                     <tr>
                         <td> <?php echo $b+1; ?> </td>
                         <td> <?php echo tgl_indo($val['tanggal']); ?> </td>
                         <td> <?php echo $val['total_volume']; ?> </td>
                         <td> <a href="<?php echo base_url() ?>laporan/volume/kecamatan/<?php echo $val['tanggal']; ?>"> Detail </a> </td>
                     </tr>
-                    <?php } ?>
+                    <?php }
+
+                        }
+                     ?>
 
                 </table>
                             

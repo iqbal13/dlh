@@ -28,7 +28,6 @@
                                                 <th> Pool Gerobak </th>
                                                 <th> Pool Container </th>
                                                 <th> Bak Beton </th>
-                                                <th> Aaaaa<
                                             </tr>
                                         </thead>
                                             <?php 

@@ -53,8 +53,11 @@ class User extends CI_Controller {
 			if($aksi == "tambah"){
 				
 
+				$this->load->library('form_validation');
+				$this->form_validation->set_rules('username','Username','required|is_unique[user.username]');
 
 
+				if($this->form_validation->run() == TRUE){
 					$dt = array(
 						'nama_user' => $_POST['nama_user'],
 						'username' => $_POST['username'],
@@ -72,6 +75,12 @@ class User extends CI_Controller {
 												$this->session->set_flashdata('item','<div class="alert alert-danger"> User GAGAL Ditambahkan </div>');
 
 					}
+
+				}else{
+
+
+					$this->session->set_flashdata('item','<div class="alert alert-danger">'.validation_errors().'</div>');
+				}
 
 					redirect('user');
 

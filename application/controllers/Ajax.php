@@ -13,4 +13,9 @@
 
 		}
 
+		function pilihtahun(){
+			$tahun = $_POST['tahun'];
+			$_SESSION['tahun'] = $tahun;
+		}
+
 	}

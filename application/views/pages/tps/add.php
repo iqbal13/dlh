@@ -26,10 +26,10 @@
                                 <label>Koordinat</label>
                                 <div class="row">
                                 <div class="col-lg-6">
-                                     <input class="form-control" type="text" name="koordinat" placeholder="Bujur" />
+                                     <input class="form-control" type="text" name="bujur" placeholder="Bujur" />
                                 </div>
                             <div class="col-lg-6">
-                                <input class="form-control" type="text" name="koordinat" placeholder="Koordinat" />
+                                <input class="form-control" type="text" name="lintang" placeholder="Lintang" />
                             </div>
                             </div>
                             </div>
@@ -199,8 +199,6 @@
                             </div>
                            
                              <div class="form-group" style="display: none;" id="tampil">
-                                <label>Nama Truk</label>
-                                <input class="form-control" type="text" name="nama_truk" placeholder="Nama Truk" />
 
                                 <label>Jenis Truk</label>
                                 <input class="form-control" type="text" name="jenis_truk" placeholder="Jenis Truk" />

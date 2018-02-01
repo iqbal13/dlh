@@ -13,82 +13,70 @@
 
 
         public function laporan_volume($tipe = "bulanan", $bulan = 1, $jenis = "kecamatan"){
-          $tahun = date('Y');
-
-          if($jenis == 'kecamatan'){ 
-
-
-
-          if($tipe == "bulanan"){
-          $data['content'] = "pages/laporan/laporan_volume_spv1";
-
-          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,1,4) = $tahun  AND (status = 2 OR status = 3)  GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
-
-          $bulan = array();
-          foreach($data['bulan'] as $b){
-            array_push($bulan,bulan($b['bulan']));
-
-
+          $tahun = @$_SESSION['tahun'];
+          if(@$tahun == ''){
+            $tahun = date('Y');
+          }else{
+            $tahun = $tahun;
           }
-          $data['bulannya'] = $bulan;
+          
+          if($jenis == 'kecamatan'){ 
+                if($tipe == "bulanan"){
+                     $data['content'] = "pages/laporan/laporan_volume_spv1";
+                     $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,1,4) = $tahun  AND (status = 2 OR status = 3)  GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
 
-        }else{
-          $data['bulan'] = bulan($bulan);
-          $data['content'] = "pages/laporan/laporan_volume_spv1pertanggal";
-          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun AND (status = 2 OR status = 3) GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+                     $bulan = array();
+                      foreach($data['bulan'] as $b){
+                       array_push($bulan,bulan($b['bulan']));   
+                     }
+          
+                     $data['bulannya'] = $bulan;
 
-
-        }
+                  }else{
+          
+                      $data['bulan'] = bulan($bulan);
+                      $data['content'] = "pages/laporan/laporan_volume_spv1pertanggal";
+                      $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Kecamatan = '$_SESSION[kecamatan]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun AND (status = 2 OR status = 3) GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+                }
 
 
       }else if($jenis == 'kota'){
 
           if($_SESSION['level'] == 'Supervisor2'){
 
-           if($tipe == "bulanan"){
-          $data['content'] = "pages/laporan/laporan_volume_spv2";
+               if($tipe == "bulanan"){
+                   $data['content'] = "pages/laporan/laporan_volume_spv2";
+                   $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,1,4) = $tahun AND (status = 2 OR status = 3)  GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
 
-          $data['bulan']  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,1,4) = $tahun   AND (status = 2 OR status = 3)  GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
+                  $bulan = array();
+                  foreach($data['bulan'] as $b){
+                        array_push($bulan,bulan($b['bulan']));
+                    }
+                   $data['bulannya'] = $bulan;
 
-          $bulan = array();
-          foreach($data['bulan'] as $b){
-            array_push($bulan,bulan($b['bulan']));
+                }else{
+                  $data['bulan'] = bulan($bulan);
+                  $data['content'] = "pages/laporan/laporan_volume_spv2pertanggal";
+                  $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun   AND (status = 2 OR status = 3) GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+                }
 
+          }else if($_SESSION['level'] == 'Admin'){
 
-          }
-          $data['bulannya'] = $bulan;
+                if($tipe == 'bulanan'){
+                      $data['content'] = "pages/laporan/laporan_volume_admin";
+                      $data['kota'] = $this->db->get_where('master_kota')->result_array();
 
-        }else{
-          $data['bulan'] = bulan($bulan);
-          $data['content'] = "pages/laporan/laporan_volume_spv2pertanggal";
-          $data['tanggal']  =$this->db->query("SELECT tanggal, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$_SESSION[kota]' AND SUBSTR(tanggal,6,2) = $bulan AND SUBSTR(tanggal,1,4) = $tahun   AND (status = 2 OR status = 3) GROUP BY SUBSTR(tanggal,9,2), SUBSTR(tanggal,1,4)")->result_array();
+                }else{
+                     $data['content'] = "pages/laporan/laporan_volume_admin_pertanggal";
+                     $data['kota'] = $this->db->get_where('master_kota')->result_array();
 
+                 }
 
-        }
-
-      }else if($_SESSION['level'] == 'Admin'){
-
-        if($tipe == 'bulanan'){
-          $data['content'] = "pages/laporan/laporan_volume_admin";
-
-          $data['kota'] = $this->db->get_where('master_kota')->result_array();
-
-        }else{
-          $data['content'] = "pages/laporan/laporan_volume_admin_pertanggal";
-
-          $data['kota'] = $this->db->get_where('master_kota')->result_array();
-
-        }
-
-      }
-
-
-
-
+         }
       }
 
           $this->load->view('dashboard',$data);
-        }
+    }
 
 
 				public function exportexcel($tipe = "kecamatan", $tanggal = 0)
@@ -100,13 +88,13 @@
 					$kecamatan = $_SESSION['kecamatan'];
 					if($tanggal == 0){
 
-						$a = $this->db->query("SELECT SUM(VOLUME) as volume , min(tanggal) as tanggal_min , max(tanggal) as tanggal_max, volume_tps.kode_tps,nama_tps FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Kecamatan = '$kecamatan' GROUP BY volume_tps.kode_tps");
+						$a = $this->db->query("SELECT SUM(VOLUME) as volume , min(tanggal) as tanggal_min , max(tanggal) as tanggal_max, volume_tps.kode_tps,nama_tps FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Kecamatan = '$kecamatan' AND (status = 2 OR status = 3)  GROUP BY volume_tps.kode_tps");
 						$data['tanggal'] = $tanggal;
 						$data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
 
 					}else{
 						$data['tanggal'] = $tanggal;
-						$a = $this->db->query("SELECT SUM(VOLUME) as volume , min(tanggal) as tanggal_min , max(tanggal) as tanggal_max, volume_tps.kode_tps,nama_tps FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Kecamatan = '$kecamatan' AND tanggal = '$tanggal' GROUP BY volume_tps.kode_tps, tanggal");
+						$a = $this->db->query("SELECT SUM(VOLUME) as volume , min(tanggal) as tanggal_min , max(tanggal) as tanggal_max, volume_tps.kode_tps,nama_tps FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Kecamatan = '$kecamatan' AND tanggal = '$tanggal' AND (status = 2 OR status = 3)  GROUP BY volume_tps.kode_tps, tanggal");
 						}
 
 
@@ -119,14 +107,13 @@
 									$kota = $_SESSION['kota'];
 								if($tanggal == 0){
 									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota'  GROUP BY master_tps.Kecamatan";
-$a = $this->db->query($query);
-		
-	$data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
+                $a = $this->db->query($query);
+	               $data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
 
 
 
 								}else{
-									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota' AND tanggal = '$tanggal'  GROUP BY master_tps.Kecamatan,tanggal";
+									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota' AND tanggal = '$tanggal' AND (status = 2 OR status = 3)   GROUP BY master_tps.Kecamatan,tanggal";
 
 $a = $this->db->query($query);
 	$data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
@@ -264,6 +251,7 @@ $objPHPExcel->getActiveSheet(0)
 							$data['content'] = "pages/laporan/perkecamatan_laporan";
 
 
+
 							$this->load->view('dashboard',$data);
 
 
@@ -271,36 +259,33 @@ $objPHPExcel->getActiveSheet(0)
 
               if($_SESSION['level'] == 'Admin'){
 
-
+                  
                   $kota = $this->db->query("SELECT * FROM master_kota WHERE id_kota != 6")->result_array();
                   $data['tanggal'] = $tanggal;
                   $data['kota'] = $kota;
                   //$data['data'] = $a->result_array();
+                            $query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE tanggal = '$tanggal'  AND status != 9 AND status != 1 GROUP BY master_tps.Kecamatan,tanggal";
+                              
+                    $a = $this->db->query($query);
+                    $data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps WHERE status != 9 AND status != 1 GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
+
+                    $data['data'] = $a->result_array();
+
                   $data['content'] = "pages/laporan/volumeall_laporan";
                   $this->load->view('dashboard',$data);
-
-
-
-
-
               }else{
 
 								$kota = $_SESSION['kota'];
 								if($tanggal == 0){
-									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota' AND status != 9 AND status != 1 GROUP BY master_tps.Kecamatan";
-$a = $this->db->query($query);
-		
-	$data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps WHERE status != 9 AND status != 1 GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
-
-
+									 $query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota' AND status != 9 AND status != 1 GROUP BY master_tps.Kecamatan";
+                    $a = $this->db->query($query);
+		                $data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps WHERE status != 9 AND status != 1 GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
 
 								}else{
-									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota' AND tanggal = '$tanggal'  AND status != 9 AND status != 1 GROUP BY master_tps.Kecamatan,tanggal";
+  									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota' AND tanggal = '$tanggal'  AND status != 9 AND status != 1 GROUP BY master_tps.Kecamatan,tanggal";
 
-$a = $this->db->query($query);
-	$data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps WHERE status != 9 AND status != 1 GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
-
-
+                    $a = $this->db->query($query);
+                  	$data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps WHERE status != 9 AND status != 1 GROUP BY tanggal ORDER BY tanggal ASC")->result_array();
 								}
 
 									$data['data'] = $a->result_array();
@@ -495,7 +480,6 @@ $objPHPExcel->getActiveSheet(0)
 
 
             $objPHPExcel->getActiveSheet()->setTitle('Laporan Per Kecamatan');
- $objPHPExcel->getActiveSheet()->setBorder('A3:P'.$row, 'thin');
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
  

@@ -1,4 +1,11 @@
 <?php $this->load->view('partial/head'); ?>
+
+<style type="text/css">
+  body {
+    overflow: auto;
+  }
+</style>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -36,7 +43,7 @@
   <?php $this->load->view('partial/footer') ;?>
 </div>
 <!-- ./wrapper -->
-<?php $this->load->view('partial/js_under'); ?>A
+<?php $this->load->view('partial/js_under'); ?>
   <?php 
     if(@$js_under){
       $this->load->view($js_under); 
@@ -44,6 +51,25 @@
     }
     ?>  
 
+<script>
+        function pilihtahun(a){
+
+                if(a == ''){
+
+                }else{
+                        $.ajax({
+                            type:"POST",
+                            url:"<?php echo base_url() ?>ajax/pilihtahun",
+                            data:"tahun="+a,
+                            success:function(dt){
+                                alert('Anda Memilih Tahun Laporan '+a);
+                                window.location.reload();
+                            }
+                        })
+
+                }
+        }
+</script>
 
 
 </body>

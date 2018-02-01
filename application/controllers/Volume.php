@@ -45,8 +45,10 @@ if($this->session->userdata('level') == 'Admin'){
 			$where = " WHERE Wilayah = '$kota";
 		}
 
-
-		$query = $this->db->query("SELECT * FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps $where");
+			$qq ="SELECT * FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps $where";
+			// echo $qq;
+			// exit;
+		$query = $this->db->query($qq);
 			$data['tps'] = $query->result_array();
 
 		$data['content'] = "pages/volume/index";
@@ -62,6 +64,10 @@ if($this->session->userdata('level') == 'Admin'){
 			$kecamatan = $this->session->userdata('kecamatan');
 			$data['tps'] = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
 		}else if($this->session->userdata('level') == 'Supervisor1'){
+			$kecamatan = $this->session->userdata('kecamatan');
+			$data['tps'] = $this->db->get_where('master_tps',array('Kecamatan' => $kecamatan))->result_array();
+		}else if($this->session->userdata('level') == 'Supervisor2'){
+
 			$kecamatan = $this->session->userdata('kota');
 			$data['tps'] = $this->db->get_where('master_tps',array('Wilayah' => $kecamatan))->result_array();
 		}
@@ -113,6 +119,8 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 					$status = 1;
 				}else if($_SESSION['level'] == 'Supervisor1'){
 					$status = 2;
+					}else if($_SESSION['level'] == 'Supervisor2'){
+					$status = 2;
 				}else if($_SESSION['level'] == 'Admin'){
 					$status = 3;
 				}
@@ -136,8 +144,12 @@ else if($this->session->userdata('level') == 'Supervisor1'){
 
 					}
 
-					redirect('volume');
+					if($_SESSION['level'] == 'Operator'){
 
+							redirect('volume/add');
+							}else{
+					redirect('volume');
+						}
 			}else if($aksi == "edit"){
 					$id = $_POST['id'];
 
