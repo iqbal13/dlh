@@ -7,15 +7,25 @@
      		<div class="box box-success">
      				<div class="box-header">
 
-	        		<h3 class="text-center"> Laporan Volume Sampah Per Kota : <?php echo $_SESSION['kota'] ?> <?php if(@$tanggal != '') echo $tanggal; ?></h3>
+	        		<h3 class="text-center"> Laporan Volume Sampah Per Kota : <?php if($_SESSION['level'] == 'Supervisor1' OR $_SESSION['level'] == 'Supervisor2'){ echo $_SESSION['kota']; } else { 
+                            echo @$kota[0]['kota'];
+                                } ?> <?php if(@$tanggal != '') echo $tanggal; ?></h3>
 
      				</div>
      				<div class="box-body">
-              <?php 
+              <?php         
+                if($_SESSION['level'] == 'Supervisor2' OR $_SESSION['level'] == 'Supervisor1'){
+                    $kota = $_SESSION['kota'];
+                }else{
+                    $kota = $kota[0]['id_kota'];
+                }
+
                        $url = base_url()."laporan/exportexcel/".$this->uri->segment(3);
                        if(@$this->uri->segment(4) != ''){ 
                             $url .= "/".$this->uri->segment(4);
                        }
+
+                       $url .= "?id_kota=".$kota;
                        ?>
 
                             <a class="btn btn-primary" href="<?php echo $url ?>"> Export </a>

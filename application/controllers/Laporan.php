@@ -67,8 +67,11 @@
                       $data['kota'] = $this->db->get_where('master_kota')->result_array();
 
                 }else{
+                  $id_kota = $_GET['id_kota'];
+                  // echo $id_kota;
+                  // exit;
                      $data['content'] = "pages/laporan/laporan_volume_admin_pertanggal";
-                     $data['kota'] = $this->db->get_where('master_kota')->result_array();
+                     $data['kota'] = $this->db->get_where('master_kota',array('id_kota' => $id_kota))->result_array();
 
                  }
 
@@ -103,8 +106,12 @@
 
 						}else{ 
 
-
+                if($_SESSION['level'] == 'Supervisor1' OR $_SESSION['level'] == 'Supervisor2'){
 									$kota = $_SESSION['kota'];
+                }else{
+                  $id_kota = $this->db->get_where('master_kota',array('id_kota' => $_GET['id_kota']))->result_array();
+                  $kota = $id_kota[0]['kota'];
+                }
 								if($tanggal == 0){
 									$query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE master_tps.Wilayah = '$kota'  GROUP BY master_tps.Kecamatan";
                 $a = $this->db->query($query);
@@ -258,13 +265,13 @@ $objPHPExcel->getActiveSheet(0)
 						}else if($tipe == "kota"){
 
               if($_SESSION['level'] == 'Admin'){
-
+                  $id_kota = $_GET['id_kota'];
                   
-                  $kota = $this->db->query("SELECT * FROM master_kota WHERE id_kota != 6")->result_array();
+                  $kota = $this->db->query("SELECT * FROM master_kota WHERE id_kota = '$id_kota'")->result_array();
                   $data['tanggal'] = $tanggal;
                   $data['kota'] = $kota;
                   //$data['data'] = $a->result_array();
-                            $query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE tanggal = '$tanggal'  AND status != 9 AND status != 1 GROUP BY master_tps.Kecamatan,tanggal";
+                            $query = "SELECT SUM(VOLUME) as volume , Kecamatan FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps LEFT JOIN master_kecamatan ON master_tps.Kecamatan = master_kecamatan.nama_kecamatan WHERE tanggal = '$tanggal'  AND status != 9 AND status != 1 AND id_kota = '$id_kota' GROUP BY master_tps.Kecamatan,tanggal";
                               
                     $a = $this->db->query($query);
                     $data['tgl'] = $this->db->query("SELECT tanggal FROM volume_tps WHERE status != 9 AND status != 1 GROUP BY tanggal ORDER BY tanggal ASC")->result_array();

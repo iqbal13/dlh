@@ -52,13 +52,13 @@
                         <th> Jumlah </th>
                         <th> Detail </th>
                     </tr>
-                    <?php foreach($bulannya as $b => $val){
+                    <?php foreach($bulannya as $b => $vala){
                      ?>
                     <tr>
                         <td> <?php echo $b+1; ?> </td>
-                        <td> <?php echo $val['tanggal']; ?> </td>
+                        <td> <?php echo $vala['tanggal']; ?> </td>
                         <td> <?php echo $tanggal[$b]['total_volume']; ?>  </td>
-                        <td> <a href="<?php echo base_url() ?>laporan/volume/kota/<?php echo $val['tanggal']; ?>"> Detail </a> </td>
+                        <td> <a href="<?php echo base_url() ?>laporan/volume/kota/<?php echo $vala['tanggal']; ?>?id_kota=<?php echo $val['id_kota'] ?>"> Detail </a> </td>
                     </tr>
                     <?php } ?>
 

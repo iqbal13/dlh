@@ -56,13 +56,13 @@
                         <th> Jumlah </th>
                         <th> Detail </th>
                     </tr>
-                    <?php foreach($bulannya as $b => $val){
+                    <?php foreach($bulannya as $b => $vala){
                      ?>
                     <tr>
                         <td> <?php echo $b+1; ?> </td>
-                        <td> <?php echo $val; ?> </td>
+                        <td> <?php echo $vala; ?> </td>
                         <td> <?php echo $databulan[$b]['total_volume']; ?>  </td>
-                        <td> <a href="<?php echo base_url() ?>laporan/laporan_volume/harian/<?php echo $databulan[$b]['bulan']; ?>/kota"> Detail </a> </td>
+                        <td> <a href="<?php echo base_url() ?>laporan/laporan_volume/harian/<?php echo $databulan[$b]['bulan']; ?>/kota?id_kota=<?php echo $val['id_kota']; ?>"> Detail </a> </td>
                     </tr>
                     <?php } ?>
 
