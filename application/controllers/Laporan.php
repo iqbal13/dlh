@@ -63,6 +63,7 @@
           }else if($_SESSION['level'] == 'Admin'){
 
                 if($tipe == 'bulanan'){
+                    
                       $data['content'] = "pages/laporan/laporan_volume_admin";
                       $data['kota'] = $this->db->get_where('master_kota')->result_array();
 

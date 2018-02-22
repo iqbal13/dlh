@@ -6,10 +6,62 @@
             
             <div class="box box-success">
                     <div class="box-header">
+                    
+                      <h3> Laporan Volume Sampah Tahun
+                                                    <?php echo @$_SESSION['tahun'] == '' ? date('Y') : $_SESSION['tahun']; ?>
+
+                                                    <?php 
+                                                      $tahun = @$_SESSION['tahun'];
+                                                      if(@$tahun == ''){
+                                                        $tahun = date('Y');
+                                                      }else{
+                                                        $tahun = $tahun;
+                                                      }
+                                                      ?>
+                       </h3>
                     </div>
 
                     <div class="box-body">
+    <?php
+                             $now =date('Y');
 
+                             ?>
+                <div class="pull-right">
+                    <label> Pilih Tahun </label>
+                    <select class="form-control" name="tahun" onchange="pilihtahun(this.value)">
+                            <?php
+                           
+                            for($x = $now - 1; $x <= $now + 1; $x++){ 
+                                    if(@trim($_SESSION['tahun']) == $x){
+                                        $select ='selected="selected"';
+                                    }else{
+
+                                        if(@$_SESSION['tahun'] == ''){
+                                        if($x == $now){
+                                            $select ='selected="selected"';
+                                        }else{
+                                            $select ='';
+                                        }
+
+                                    }else{
+                                        $select = '';
+                                    }
+
+                                    }
+                                        ?>
+
+
+                                    <option value="<?php echo $x ?>" <?=$select; ?>> <?php echo $x ?> </option>
+                            <?php
+                            }
+                            ?>
+
+                      <!--   <option value="2017"> 2017 </option>
+  <option value="2018"> 2018 </option>
+    <option value="2019"> 2019 </option> -->
+                    </select>
+                </div>
+                <div class="clearfix"> </div>
                                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                         <?php
 
@@ -28,7 +80,9 @@
 
             <?php
              // if($tipe == "bulanan"){
-  $tahun = date('Y');
+  // $tahun = date('Y');
+
+
           $databulan  =$this->db->query("SELECT SUBSTR(tanggal,6,2) as bulan, SUM(volume) as total_volume FROM volume_tps LEFT JOIN master_tps ON volume_tps.kode_tps = master_tps.Kode_tps WHERE Wilayah = '$val[kota]' AND SUBSTR(tanggal,1,4) = $tahun   AND (status = 2 OR status = 3)  GROUP BY SUBSTR(tanggal,6,2), SUBSTR(tanggal,1,4)")->result_array();
 
           $bulan = array();

@@ -90,21 +90,22 @@ public function detail($id = 0)
                 $this->load->library('form_validation');
                 $this->form_validation->set_rules('kode_tps','Kode TPS','required|is_unique[master_tps.Kode_tps]');
 
-		  $kode_tps = $_POST['kode_tps'];
-	
-    $nama_tps = $_POST['nama_tps'];
-    $koordinat = $_POST['lintang'];
-    $bujur = $_POST['bujur'];
-    $penanggung_jawab = $_POST['penanggung_jawab'];
-    $no_hp = $_POST['no_hp'];
-    $alamat_tps = $_POST['alamat_tps'];
-    $kelurahan = $_POST['kelurahan'];
-    $kecamatan = $_POST['kecamatan'];
-    $wilayah = $_POST['wilayah'];
-    $jenis_tps = $_POST['jenis_tps'];
-    $luas_lahan = $_POST['luas_lahan'];
-    $status_lahan 	= $_POST['status_lahan'];
-    $sumber_sampah = $_POST['sumber_sampah'];
+                if($this->form_validation->run() == TRUE){ 
+
+	$kode_tps = $_POST['kode_tps'];
+    $nama_tps = @$_POST['nama_tps'];
+    $koordinat = @$_POST['lintang'];
+    $bujur = @$_POST['bujur'];
+    $penanggung_jawab = @$_POST['penanggung_jawab'];
+    $no_hp = @$_POST['no_hp'];
+    $alamat_tps = @$_POST['alamat_tps'];
+    $kelurahan = @$_POST['kelurahan'];
+    $kecamatan = @$_POST['kecamatan'];
+    $wilayah = @$_POST['wilayah'];
+    $jenis_tps = @$_POST['jenis_tps'];
+    $luas_lahan = @$_POST['luas_lahan'];
+    $status_lahan 	= @$_POST['status_lahan'];
+    $sumber_sampah = @$_POST['sumber_sampah'];
     $atap = @$_POST['atap'];
     $dinding = @$_POST['dinding'];
     $landasan = @$_POST['landasan'];
@@ -114,9 +115,9 @@ public function detail($id = 0)
     $penghijauan = @$_POST['penghijauan'];
     $sumber_air = @$_POST['sumber_air'];
     $truk = @$_POST['truk'];
-    $nama_truk = $_POST['nama_truk'];
-    $jenis_truk = $_POST['jenis_truk'];
-    $nomer_truk = $_POST['nomer_truk'];
+    $nama_truk = @$_POST['nama_truk'];
+    $jenis_truk = @$_POST['jenis_truk'];
+    $nomer_truk = @$_POST['nomer_truk'];
     $alat_berat = @$_POST['alat_berat'];
     $composting = @$_POST['composting'];
     $pencacah_organik = @$_POST['pencacah_organik'];
@@ -291,6 +292,12 @@ public function detail($id = 0)
 		}else{
 			echo "ga error";
 		}
+
+    }else{
+                    $this->session->set_flashdata('item','<div class="alert alert-danger"> Kode TPS tidak boleh sama </div>');
+
+        redirect('tps/add');
+    }
 			}else if($aksi == "edit"){
 
 
@@ -317,7 +324,7 @@ public function detail($id = 0)
     $penghijauan = @$_POST['penghijauan'];
     $sumber_air = @$_POST['sumber_air'];
     $truk = @$_POST['truk'];
-    $nama_truk = $_POST['nama_truk'];
+    $nama_truk = @$_POST['nama_truk'];
     $jenis_truk = $_POST['jenis_truk'];
     $nomer_truk = $_POST['nomer_truk'];
     $alat_berat = @$_POST['alat_berat'];

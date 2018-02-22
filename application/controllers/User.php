@@ -79,7 +79,7 @@ class User extends CI_Controller {
 				}else{
 
 
-					$this->session->set_flashdata('item','<div class="alert alert-danger">'.validation_errors().'</div>');
+			$this->session->set_flashdata('item','<div class="alert alert-danger"> Username Tidak Boleh Sama !! </div>');
 				}
 
 					redirect('user');

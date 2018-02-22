@@ -80,7 +80,22 @@
                             </script>
                         <div class="form-group">
                                 <label>Wilayah</label>
-                                <input class="form-control" type="text" name="wilayah" value="Jakarta Barat" readonly="readonly" />
+
+                                <?php 
+                                if(@$_SESSION['level'] == 'Operator' OR @$_SESSION['level'] == 'Supervisor1'){ ?>
+                                <input class="form-control" type="text" name="wilayah" value="<?php echo $_SESSION['kota']; ?>" readonly="readonly" />
+
+                                <?php } else {
+                                    $kota = $this->db->get_where('master_kota')->result_array();
+                                 ?>
+                                <select class="form-control"  name="wilayah">  
+                                    <?php foreach($kota as $k => $val): ?>
+                                        <option value="<?php echo $val['kota']; ?>"> <?php echo $val['kota']; ?> </option>
+                                    <?php endforeach; ?>
+
+                                </select>
+
+                                <?php } ?>
                             </div>
                              <div class="form-group">
                              <label>Jenis TPS</label>
