@@ -60,9 +60,10 @@
                                                         <a href="<?php echo base_url() ?>volume/validasi/<?php echo $val['id_volume'] ?>?id_status=2" class="btn btn-success" onclick="return confirm('Validasi Data Ini')">Validasi</a>
                                                         <?php } else if($val['status'] == 2){ ?>
                                                         <a href="<?php echo base_url() ?>volume/validasi/<?php echo $val['id_volume'] ?>?id_status=1" class="btn btn-danger" onclick="return confirm('Validasi Data Ini')">Batal Validasi</a>
-
+                                            
                                                         <?php } ?>
 
+ <a href="<?php echo base_url() ?>volume/delete/<?php echo $val['id_volume'] ?>" onclick="return confirm('Hapus data ini ? data akan terhapus permanen')" class="btn btn-danger"> Delete</a>
 
                                                     <?php }else if($level == 'Supervisor2'){ ?>
                                                     
