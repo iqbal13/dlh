@@ -61,6 +61,10 @@
                      <tr><td> Permasalahan </td> <td> : </td> <td> <?php echo $val['Permasalahan']; ?> </td> </tr>
                      <tr><td> Keterangan </td> <td> : </td> <td> <?php echo $val['Keterangan']; ?> </td> </tr>
                      <tr><td> Luas Lahan </td> <td> : </td> <td> <?php echo $val['Luas_lahan']; ?> </td> </tr>
+
+                        
+                                          <tr><td> Nomer Pintu Truk </td> <td> : </td> <td> <?php echo $val['nomer_pintu_truk']; ?> </td> </tr>
+
                      <tr><td> FOTO tps 1 </td> <td> : </td> <td> <?php if($val['Foto_TPS'] != ''){ ?>
                         <img src="<?php echo base_url() ?>foto_tps/<?php echo trim($val['Foto_TPS']); ?>" class="img-responsive">
                         <?php  } ?>

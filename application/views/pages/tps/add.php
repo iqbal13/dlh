@@ -206,14 +206,17 @@
                             <div class="form-group">
                             <label>Truck</label> <br>
                             <label class="radio-inline">
-                            <input type="radio" name="truk" id="inlineRadio1" onclick="view_truk(0);" value="ada"> Ada
+                            <input type="radio" name="truka" id="inlineRadio1" onclick="view_truk(0);" value="ada"> Ada
                             </label>
                             <label class="radio-inline">
-                            <input type="radio" name="truk" id="inlineRadio2" onclick="view_truk(1);" value="Tidak Ada"> Tidak Ada
+                            <input type="radio" name="truka" id="inlineRadio2" onclick="view_truk(1);" value="Tidak Ada"> Tidak Ada
                             </label>
                             </div>
                            
                              <div class="form-group" style="display: none;" id="tampil">
+                                 <label>Truk</label>
+                                <input class="form-control" type="text" name="truk" placeholder="Contoh isi : 1 truk" />
+                        
 
                                 <label>Jenis Truk</label>
                                 <input class="form-control" type="text" name="jenis_truk" placeholder="Jenis Truk" />

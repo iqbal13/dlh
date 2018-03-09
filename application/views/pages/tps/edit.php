@@ -323,6 +323,9 @@
                             </div>
                            
                              <div class="form-group" style="display: none;" id="tampil">
+                                <label>Truk</label>
+                                <input class="form-control" type="text" name="truk" value="<?php echo $tps['Truk'] ?>" placeholder="contoh isi 1 truk" />
+                        
                                 <label>Nama Truk</label>
                                 <input class="form-control" type="text" name="nama_truk" placeholder="Nama Truk" />
 
